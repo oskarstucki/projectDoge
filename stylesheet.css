@@ -1,0 +1,147 @@
+{
+    box-sizing: border-box;
+}
+
+html{
+    background:url(https://www.toptal.com/designers/subtlepatterns/patterns/dark_embroidery.png);
+    /* Background pattern from Subtle Patterns */
+}
+
+body {
+    text-align: center;
+
+}
+
+.site{
+    margin: 10px;
+    align-items: center;
+
+
+}
+
+ul {
+
+    right: 5%;
+    list-style-type: none;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    word-break: break-all;
+    width: 80%;
+
+
+
+}
+
+li{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-spacing: 100px;
+    tab-size: 15px ;
+    padding: 10px;
+
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: url("https://www.toptal.com/designers/subtlepatterns/patterns/sos.png");
+    overflow: hidden;
+
+
+
+
+}
+
+input{
+
+    position: relative;
+    font-size: 100%;
+
+}
+
+
+
+h1 {
+    background: url("https://www.toptal.com/designers/subtlepatterns/patterns/gaming-pattern.png");
+    /* Background pattern from Subtle Patterns */
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+h2 {
+    color: ghostwhite;
+}
+
+.deletebutton{
+    font-size: 20px;
+    float: right;
+
+}
+
+@media all and (min-width: 700px) {
+    h1 {
+
+        text-align: center;
+        font-size: 100px;
+
+    }
+
+    h2{
+        font-size: 50px;
+        position: relative;
+
+    }
+
+    .newThings{
+        height: 50px;
+        width: 500px;
+    }
+
+    .subbut{
+        height: 55px;
+        width: 100px;
+    }
+
+
+    ul {
+        width: 50%;
+        word-wrap: break-word;
+
+
+    }
+
+    li{
+        //font-size: 30px;
+
+    }
+
+}
+
+@media all and (max-width: 699px) {
+    input{
+        width: 30%;
+    }
+
+    ul{
+        width: 90%;
+    }
+
+    .deletebutton{
+        width: 20%;
+        width: 20%;
+        font-size: 60%;
+        text-align: center;
+    }
+
+
+}
+
+.inside {
+    color: red;
+
+}
+
+
