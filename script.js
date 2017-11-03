@@ -1,5 +1,24 @@
 "use strict";
+
+
+function printer(){
+    let noteList = $("#list");
+    $.getJSON("printer.php", function (data) {
+        noteList.empty();
+        data.forEach(function (entry) {
+                noteList.append("<li id='"+entry.id+"'>"+entry.note+"<button class='deleteButton' value='Poista'>Poista</button></li>")
+            }
+
+        );
+
+
+
+    });
+
+}
+
 $(document).ready(function () {
+    printer();
     let input = $(".newThings");
     let list = $("#list");
     let elementNumber=0;
@@ -17,25 +36,32 @@ $(document).ready(function () {
         $(this).removeClass("inside")
     });
 
-    list.on("click", "button", function () {
+    list.on("click", ".deleteButton", function () {
+        let buttonId = $(this).parent("li").attr("id");
         $( this).parent("li").fadeOut(function(){ $( this ).parent("li").remove(); });
+        $.ajax({
+            type: "GET",
+            url: "delete.php",
+            data: {"id": buttonId}
+        });
+        console.log(buttonId);
     });
 
-    $("#adder").submit(function(e) {
+    $("#formBut").click(function(e) {
+        let noteVar = $(".newThings").val();
 
-        var url = "adder.php"; // the script where you handle the form input.
+
+        let url = "adder.php";
 
         $.ajax({
             type: "POST",
             url: url,
-            data: $("#adder").serialize(), // serializes the form's elements.
-            success: function(data)
-            {
-                note(); // show response from the php script.
-            }
-        });
+            data: {"note": noteVar}
 
-        e.preventDefault(); // avoid to execute the actual submit of the form.
+        });
+        printer();
+
+
     });
 
 

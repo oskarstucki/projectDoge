@@ -26,36 +26,17 @@ function site(){
     <h1>Muistilista</h1>
     <div class="form">
         <h2>uusi asia</h2>
-        <form action="adder.php" method="post" id="adder">
+        <!--<form action="adder.php" method="post" id="adder">
+
+        </form>-->
+        <div id="form">
             <input class="newThings" title="newThing" type="text" name="note">
-            <input class="subbut" type="submit" value="send">
-        </form>
+            <button id="formBut">send</button>
+        </div>
+        <ul id="list"></ul>
     </div>
 
     </body>
     </html>
     <?php
-}
-
-function notes(){
-    $notesList = array();
-    $db = new PDO('mysql:host=localhost;dbname=www;charset=utf8', 'www', 'asd');
-    $stmt = $db->prepare("SELECT id, note, timeanddate FROM notes");
-    $stmt->execute(array(":id"));
-
-    //$stmt->debugDumpParams();
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //var_dump($rows);
-    echo '<ul id="list">';
-    foreach ($rows as $i){
-        $a = $i["note"];
-        $b = $i["id"];
-        echo ("<li>$a<form action ='delete.php' method='get'><input type='hidden' value='$b' name='id'/>
-                <input class='deletebutton' type='submit' value='Poista'/></form></li>");
-        array_push($notesList, $i["note"]);
-    }
-    echo '</ul>'
-    ?>
-
-<?php
 }

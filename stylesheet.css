@@ -55,8 +55,7 @@ li{
 
 input{
 
-    position: relative;
-    font-size: 100%;
+
 
 }
 
@@ -75,9 +74,13 @@ h2 {
     color: ghostwhite;
 }
 
-.deletebutton{
-    font-size: 20px;
+.deleteButton{
+    font-size: 10px;
     float: right;
+    //position: relative;
+
+    display: inline-block;
+
 
 }
 
@@ -100,7 +103,7 @@ h2 {
         width: 500px;
     }
 
-    .subbut{
+    #formBut{
         height: 55px;
         width: 100px;
     }
@@ -114,7 +117,7 @@ h2 {
     }
 
     li{
-        //font-size: 30px;
+        font-size: 150%;
 
     }
 
@@ -129,9 +132,7 @@ h2 {
         width: 90%;
     }
 
-    .deletebutton{
-        width: 20%;
-        width: 20%;
+    .deleteButton{
         font-size: 60%;
         text-align: center;
     }

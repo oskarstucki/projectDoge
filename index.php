@@ -17,4 +17,3 @@ else if($_GET["p"] === "remove"){
 
 }*/
 
-notes();
