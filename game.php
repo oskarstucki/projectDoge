@@ -29,7 +29,7 @@
             game.load.image("background", "assets/png/BG.png");
             game.load.atlas("player_idle", "assets/girl/wut/idle.png","assets/girl/wut/idle.json");
             game.load.atlas("player_run", "assets/girl/wut/move.png", "assets/girl/wut/move.json");
-            game.load.atlas("coin","assets/girl/coin/coin.png", "assets/girl/coin/coin.json");
+            game.load.atlas("coin_roll","assets/girl/coin/coin.png", "assets/girl/coin/coin.json");
             game.load.image('brick', 'assets/brick.png');
 
             cursors = game.input.keyboard.createCursorKeys();
@@ -66,7 +66,7 @@
             ledge = platforms.create(950, 500, "brick");
             ledge.body.immovable =true;
 
-            player = game.add.sprite(game.world.centerX,300,'player_idle');
+            player = game.add.sprite(0,780,'player_idle');
 
             player.animations.add('idle');
             player.animations.play('idle',10,true);
@@ -80,12 +80,13 @@
             coins = game.add.group();
             coins.enableBody = true;
 
-            //  And now we convert all of the Tiled objects with an ID of 34 into sprites within the coins group
-            createFromObjects('Object Layer 1', 34, 'coin', 0, true, false, coins);
 
-            //  Add animations to all of the coin sprites
-            coins.callAll('animations.add', 'animations', 'spin', [0, 1, 2, 3, 4, 5], 10, true);
-            coins.callAll('animations.play', 'animations', 'spin');
+
+            coin = game.add.sprite(200,100,'coin_roll');
+            coin.animation.add('coin');
+            coin.animations.play('coin',10,true);
+            game.physics.arcade.enable(coin);
+
 
             sprite = game.add.sprite(260, 100, 'phaser');
             sprite.anchor.set(0.5);
