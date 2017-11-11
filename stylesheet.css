@@ -59,6 +59,12 @@ input{
 
 }
 
+.game{
+    margin: auto;
+}
+
+
+
 
 
 h1 {
@@ -120,6 +126,7 @@ h2 {
         font-size: 150%;
 
     }
+
 
 }
 
