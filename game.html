@@ -2,7 +2,7 @@
 <html lang="fi">
 <head>
     <meta charset="UTF-8">
-    <title>Muistilista</title>
+    <title>CoinGame!</title>
     <link rel="stylesheet" href="stylesheet.css">
     <script type="text/javascript" src="phaser.js"></script>
 </head>
@@ -17,56 +17,137 @@
 <h1>GAME</h1>
 <div class="information">
     <button id="playerChoice1">1 Pelaaja</button> <button id="playerChoice2">2 Pelaajaa</button>
+    <button id="register">Rekisteröidy</button>
 
 
 
 </div>
+<div id="scoreboard">
+    <ul class="list">
+    </ul>
+</div>
 <div id="phaser-game">
+
     <script>
         let player;
         let player1Name, player2Name;
+        let gravity = 700;
         let score1= 0;
         let score2=0;
         let cursors;
         let scoreText1;
         let scoreText2;
+        let lastCoinSpawn;
         let coin;
         let wasd;
-        let replayButton;
         let timer, timerEvent, timeText;
 
         let player2;
         $(document).ready(function () {
             let playtwo = $('#playerChoice2');
             let playone = $('#playerChoice1');
-            let inffo = $('.information')
+            let register = $('#register');
+            let inffo = $('.information');
 
-            playone.on('click',function () {
-                inffo.append('<div><input class="playerName" title="playerName" type="text" name="note"></div>');
-                inffo.append('<div id="playDiv"><button id="kek">Pelaa</button> </div>')
-                $('#kek').on('click',function () {
-                    if($('.playerName').val() === ""){
+            register.on('click',function () {
+                $('.p1').fadeOut().remove();
+                inffo.append('<div class="p1"><input id="user" title="playerName" type="text" placeholder="käyttäjätunnus"></div>');
+                inffo.append('<div class="p1"><input id="password" title="playerName" type="text" placeholder="salasana"></div>');
+                inffo.append('<div class="p1"><input id="password2" title="playerName" type="text" placeholder="salasana uudelleen"></div>');
+                inffo.append('<div class="p1"><button id="submit">Rekisteröidy</button> </div>')
+
+                $('#submit').on('click',function () {
+
+                    if($('.user').val() === "" || $('.password').val() === "" || $('.password2').val() === ""){
 
                     }else{
-                        player1Name = $('.playerName').val();
-                        game(1);
-                        playtwo.fadeOut();
-                        playone.fadeOut();
-                        $('#kek').fadeOut();
-                        $('.playerName').fadeOut();
+                        if($('.password').val() ===  $('.password2').val()){
+                            $.ajax({
+                                type: "POST",
+                                url: "register.php",
+                                data: {"username": $('#user').val(),
+                                    "password": $('#password').val()}
+
+                            });
+                            alert("Käyttäjä tehty!");
+                            $('.p1').fadeOut().remove();
+                        } else {
+                            alert("salasanat eivät täsmää!")
+                        }
+
+
+
                     }
 
-
                 });
 
-                });
+
+            });
+
+            playone.on('click',function () {
+                $('.p1').fadeOut().remove();
+                inffo.append('<div class="p1"><input id="playerName" title="playerName" type="text" placeholder="Käyttäjänimi"></div>');
+                inffo.append('<div class="p1"><input placeholder="salasana" id="password" title="playerName" type="text" name="note"></div>');
+
+                inffo.append('<div class="p1"><button id="submit">Pelaa</button> </div>')
+                $('#submit').on('click',function () {
+
+                    if($('#playerName').val() === ""){
+
+                    }else{
+                        $.post("login.php", {username: $('#playerName').val(), password: $('#password').val()})
+                            .done(function(data){
+                                console.log(data);
+
+                                game(1);
+                                playone.fadeOut();
+                                playtwo.fadeOut();
+                                $('.p1').fadeOut().remove();
+                                $('.list').empty();
+
+
+                            },'json');
+
+                        }});
+
+
+
+            });
+
 
 
             playtwo.on('click',function () {
-                game(2);
-                playtwo.fadeOut();
-                playone.fadeOut();
+                $('.p1').fadeOut().remove();
+                inffo.append('<div class="p1"><input placeholder="Käyttäjänimi" id="playerName" title="playerName" type="text" name="note"></div>');
+                inffo.append('<div class="p1"><input placeholder="salasana" id="password" title="playerName" type="text" name="note"></div>');
 
+                inffo.append('<div class="p1"><input placeholder="Käyttäjänimi"id="playerName2" title="playerName" type="text" name="note"></div>');
+                inffo.append('<div class="p1"><input placeholder="salasana" id="password2" title="playerName" type="text" name="note"></div>');
+
+                inffo.append('<div class="p1"><button id="submit">Pelaa</button> </div>');
+                $('#submit').on('click',function () {
+                    if($('#playerName').val() === "" || $('#playerName2').val() === "" || $('#password').val() ===""
+                    || $('#password2').val() ===""){
+
+                    }else{
+                        player1Name = $('#playerName').val();
+                        player2Name = $('#playerName2').val();
+                        $.getJSON("login.php", function (data) {
+
+                            game(2);
+                            playone.fadeOut();
+                            playtwo.fadeOut();
+                            $('.p1').fadeOut().remove();
+                            $('.list').empty();
+
+
+                        });
+
+
+
+                    }
+
+                });
             });
 
 
@@ -133,7 +214,7 @@
                     player.body.collideWorldBounds = true;
                     player.body.setSize(260,505,145);
                     player.body.bounce.y = 0.15;
-                    player.body.gravity.y = 500;
+                    player.body.gravity.y = gravity;
 
                     if (choice===2){
                         player2 = game.add.sprite(100,300,'player2');
@@ -144,29 +225,31 @@
                         player2.body.collideWorldBounds = true;
                         player2.body.setSize(260,505,145);
                         player2.body.bounce.y = 0.15;
-                        player2.body.gravity.y = 500;
-                        scoreText2 = game.add.text(5,20, "Score2: 0", {fontSize: "100px;", fill: "#fff"});
+                        player2.body.gravity.y = gravity;
+                        scoreText2 = game.add.text(5,50, "Score "+player2Name+": 0", {fontsize: "150px;", fill: "#fff"});
 
                     }
 
 
 
-                    coin = game.add.sprite(Math.random() * 900,Math.random() * 1000,'coin');
+                    coin = game.add.sprite(Math.random() * 900,Math.random() * 800,'coin');
                     coin.animations.add('spin',Phaser.Animation.generateFrameNames('Coin',1,6,'.png'),10,true,false);
                     coin.animations.play('spin', 10, true);
                     game.physics.arcade.enable(coin);
-                    coin.body.gravity.y = 500;
+                    coin.body.gravity.y = gravity;
                     coin.collideWorldBounds = true;
                     coin.body.bounce.y = 0.8;
 
-                    scoreText1 = game.add.text(5,5, "Score1: 0", {fontSize: "100px;", fill: "#fff"});
+                    scoreText1 = game.add.text(5,5, "Score "+player1Name+": 0", {fontsize: "150px;", fill: "#fff"});
 
 
                     timer = game.time.create();
+
                     timerEvent = timer.add(Phaser.Timer.MINUTE * 1);
 
                     // Start the timer
                     timer.start();
+                    lastCoinSpawn = timer.ms;
 
 
                     timeText = game.add.text(game.world.centerX,10,Math.round((timerEvent.delay - timer.ms) / 1000),{fontsize: "100px", fill:"#ff0"});
@@ -177,9 +260,13 @@
                     game.physics.arcade.collide(coin, platforms);
                     game.physics.arcade.overlap(coin, player, collectCoin, null, this);
 
-                    let accelerationSpeed = 6;
-                    let maxVelocity = 200;
-                    let slowDownRate = 20;
+                    if (timer.ms - lastCoinSpawn > 9000){
+                        newCoin(coin);
+                    }
+
+                    let accelerationSpeed = 12;
+                    let maxVelocity = 300;
+                    let slowDownRate = 30;
 
                     if (choice ===2){
                         game.physics.arcade.collide(player2, player);
@@ -209,7 +296,7 @@
 
                         if (wasd.up.isDown && player2.body.touching.down){
 
-                            player2.body.velocity.y=-450
+                            player2.body.velocity.y=-550
                         }
 
                     }
@@ -241,30 +328,34 @@
 
                     if (cursors.up.isDown && player.body.touching.down){
 
-                        player.body.velocity.y=-450
+                        player.body.velocity.y=-550
                     }
 
 
 
                     timeText.text= Math.round((timerEvent.delay - timer.ms) / 1000);
 
-                    if (Math.round(timer.ms / 1000 ) === 5){
+                    if (Math.round(timer.ms / 1000 ) === 1){
                         gameEnd();
 
                     }
 
+                    function newCoin(coin){
+                        coin.kill();
+                        lastCoinSpawn = timer.ms;
+                        let y = Math.random() * 800;
+                        let x = Math.random() * 900;
+                        coin.reset(x, y);
+                    }
 
                     function collectCoin(coin, player) {
-                        coin.kill();
-                        let y = Math.random() * 900;
-                        let x = Math.random() * 1000;
-                        coin.reset(x, y);
+                        newCoin(coin);
                         if (player.key === 'player1') {
                             score1 += 1;
-                            scoreText1.text = "Score1: " + score1;
+                            scoreText1.text = "Score "+player1Name+": "+ score1;
                         } else if (player.key === 'player2') {
                             score2 += 1;
-                            scoreText2.text = "Score2: " + score2;
+                            scoreText2.text = "Score "+player2Name+": "+ score1;
                         }
                     }
 
@@ -276,6 +367,67 @@
                     game.destroy();
                     playone.fadeIn();
                     playtwo.fadeIn();
+                    $.ajax({
+                        type: "POST",
+                        url: "addergame.php",
+                        data: {"name": player1Name,
+                                "score": score1}
+
+                    });
+                    if(choice === 2){
+                        $.ajax({
+                            type: "POST",
+                            url: "addergame.php",
+                            data: {"name": player2Name,
+                                "score": score2}
+
+                        });
+                    }
+                    printer();
+
+
+
+
+                }
+
+
+                function printer(){
+
+                    let noteList = $(".list");
+                    $.getJSON("scoreboard.php", function (data) {
+                        sorted = [];
+
+                        data.forEach(function (entry) {
+                           sorted.push({place: 0,score: entry.score, player: entry.playername})
+
+
+                        });
+
+                        sorted.sort(function (a,b) {
+                            return b.score-a.score;
+
+                        });
+                        let place=1;
+                        sorted.forEach(function(entry){
+                            entry.place = place;
+                            place++;
+                        });
+
+                        let top=5;
+                        for(let i=0;i < top; i++){
+                            noteList.append("<li>"+sorted[i].place+"  Pelaaja: "+sorted[i].player+"<br>" +
+                                "Pisteet:"+ sorted[i].score+"</li>");
+                        }
+                        sorted.forEach(function (entry) {
+                            if (entry.player === player1Name || entry.player === player2Name){
+                                if(entry.place>top){
+                                    noteList.append("<li>"+entry.place+"  Pelaaja: "+entry.player+"<br>" +
+                                        "Pisteet:"+ entry.score+"</li>");
+                                }
+                                }
+
+                        })
+                    });
 
 
                 }
@@ -289,6 +441,7 @@
 
 
     </script>
+
 </div>
 
 </body>

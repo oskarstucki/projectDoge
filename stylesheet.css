@@ -54,7 +54,7 @@ li{
 }
 
 input{
-
+    margin-top: 10px;
 
 
 }
@@ -80,8 +80,8 @@ h2 {
     color: ghostwhite;
 }
 
-canvas {
-    //display: block;
+button {
+    margin-top: 10px;
 
 }
 
