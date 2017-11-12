@@ -15,12 +15,16 @@
 <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
 <script src="script.js"></script>
 <h1>GAME</h1>
-<div class="game">
-    <script>
+<div class="information">
+    <button id="playerChoice1">1 Pelaaja</button> <button id="playerChoice2">2 Pelaajaa</button>
 
-        let idle;
-        let time;
+
+
+</div>
+<div id="phaser-game">
+    <script>
         let player;
+        let player1Name, player2Name;
         let score1= 0;
         let score2=0;
         let cursors;
@@ -28,195 +32,258 @@
         let scoreText2;
         let coin;
         let wasd;
+        let replayButton;
         let timer, timerEvent, timeText;
-        let ground;
+
         let player2;
+        $(document).ready(function () {
+            let playtwo = $('#playerChoice2');
+            let playone = $('#playerChoice1');
+            let inffo = $('.information')
 
-        let game = new Phaser.Game(1000, 900,Phaser.AUTO,"",{preload: preload, create: create, update: update});
+            playone.on('click',function () {
+                inffo.append('<div><input class="playerName" title="playerName" type="text" name="note"></div>');
+                inffo.append('<div id="playDiv"><button id="kek">Pelaa</button> </div>')
+                $('#kek').on('click',function () {
+                    if($('.playerName').val() === ""){
 
-        function preload() {
-            game.load.image("background", "assets/png/BG.png");
-            game.load.atlas("player1", "assets/girl/wut/idle.png","assets/girl/wut/idle.json");
-            game.load.atlas("player2", "assets/girl/wut/idle.png", "assets/girl/wut/idle.json");
-            game.load.atlas("coin","assets/girl/coin/coin.png","assets/girl/coin/coin.json" );
-            game.load.image('brick', 'assets/brick.png');
-
-            cursors = game.input.keyboard.createCursorKeys();
-            wasd = {
-                up: game.input.keyboard.addKey(Phaser.Keyboard.W),
-                down: game.input.keyboard.addKey(Phaser.Keyboard.S),
-                left: game.input.keyboard.addKey(Phaser.Keyboard.A),
-                right: game.input.keyboard.addKey(Phaser.Keyboard.D),
-            };
-
-        }
-
-        function create() {
-
-            game.physics.startSystem(Phaser.Physics.ARCADE);
+                    }else{
+                        player1Name = $('.playerName').val();
+                        game(1);
+                        playtwo.fadeOut();
+                        playone.fadeOut();
+                        $('#kek').fadeOut();
+                        $('.playerName').fadeOut();
+                    }
 
 
+                });
 
-            map = game.add.tileSprite(0,0,1000,900,"background");
-
-
-            platforms = game.add.group();
-
-            platforms.enableBody = true;
-
-            let ground = platforms.create(0, 880, "brick");
-            ground.scale.setTo(4,2);
-            ground.body.immovable = true;
-
-            let ledge = null;
-
-            ledge = platforms.create(-150, 390, "brick");
-            ledge.body.immovable =true;
-            ledge = platforms.create(150, 550, "brick");
-            ledge.body.immovable =true;
-            ledge = platforms.create(0, 750, "brick");
-            ledge.body.immovable =true;
-            ledge = platforms.create(600, 700, "brick");
-            ledge.body.immovable =true;
-            ledge = platforms.create(800, 500, "brick");
-            ledge.body.immovable =true;
-
-            player = game.add.sprite(0,780,'player1');
-
-            player.animations.add('kek');
-            //player.animations.add('move', Phaser.Animation.GenerateFrameNames('/assets/girl/girl/Run (',1,8,').png'), 10, true,false);
-            player.animations.play('kek',10,true);
-            player.scale.set(0.2);
-            game.physics.arcade.enable(player);
-            player.body.collideWorldBounds = true;
-            player.body.setSize(260,505,145);
-            player.body.bounce.y = 0.15;
-            player.body.gravity.y = 500;
+                });
 
 
-            player2 = game.add.sprite(100,300,'player2');
-            player2.animations.add('kok');
-            //player.animations.add('move', Phaser.Animation.GenerateFrameNames('/assets/girl/girl/Run (',1,8,').png'), 10, true,false);
-            player2.animations.play('kok',10,true);
-            player2.scale.set(0.2);
-            game.physics.arcade.enable(player2);
-            player2.body.collideWorldBounds = true;
-            player2.body.setSize(260,505,145);
-            player2.body.bounce.y = 0.15;
-            player2.body.gravity.y = 500;
+            playtwo.on('click',function () {
+                game(2);
+                playtwo.fadeOut();
+                playone.fadeOut();
+
+            });
+
+
+            function game(choice) {
+                let game = new Phaser.Game(1000, 900,Phaser.AUTO,"phaser-game",{preload: preload, create: create, update: update});
+
+                function preload() {
+                    game.load.image("background", "assets/png/BG.png");
+                    game.load.atlas("player1", "assets/girl/wut/idle.png","assets/girl/wut/idle.json");
+                    game.load.atlas("player2", "assets/girl/wut/idle.png", "assets/girl/wut/idle.json");
+                    game.load.atlas("coin","assets/girl/coin/coin.png","assets/girl/coin/coin.json" );
+                    game.load.image('brick', 'assets/brick.png');
+
+
+                    cursors = game.input.keyboard.createCursorKeys();
+                    wasd = {
+                        up: game.input.keyboard.addKey(Phaser.Keyboard.W),
+                        down: game.input.keyboard.addKey(Phaser.Keyboard.S),
+                        left: game.input.keyboard.addKey(Phaser.Keyboard.A),
+                        right: game.input.keyboard.addKey(Phaser.Keyboard.D),
+                    };
+
+                }
+
+                function create() {
+
+                    game.physics.startSystem(Phaser.Physics.ARCADE);
+                    //replayButton = game.add.button(500, 400,'button', gameEnd, this, 0,1,0);
 
 
 
-            coin = game.add.sprite(Math.random() * 1000,Math.random() * 900,'coin');
-            coin.animations.add('spin',Phaser.Animation.generateFrameNames('Coin',1,6,'.png'),10,true,false);
-            coin.animations.play('spin', 10, true);
-            game.physics.arcade.enable(coin);
-            coin.body.gravity.y = 500;
-            coin.collideWorldBounds = true;
-            coin.body.bounce.y = 0.8;
-
-            scoreText1 = game.add.text(5,5, "Score1: 0", {fontSize: "100px;", fill: "#fff"});
-            scoreText2 = game.add.text(5,20, "Score2: 0", {fontSize: "100px;", fill: "#fff"});
-
-            timer = game.time.create();
-            timerEvent = timer.add(Phaser.Timer.MINUTE * 1);
-
-            // Start the timer
-            timer.start();
-            console.log(timer.ms);
-
-            timeText = game.add.text(100,100,Math.round((timerEvent.delay - timer.ms) / 1000),{fontsize: "100px", fill:"#ff0"});
-        }
-
-        function update() {
-            game.physics.arcade.collide(player, platforms);
-            game.physics.arcade.collide(player2, player);
-            game.physics.arcade.collide(player2, platforms);
-            game.physics.arcade.collide(coin, platforms);
-            game.physics.arcade.overlap(coin, player, collectCoin, null, this);
-            game.physics.arcade.overlap(coin, player2, collectCoin, null, this);
-            let accelerationSpeed = 6;
-            let maxVelocity = 200;
-            let slowDownRate = 20;
+                    map = game.add.tileSprite(0,0,1000,900,"background");
 
 
-            if(cursors.left.isDown){
-                if (player.body.velocity.x > -maxVelocity)
-                {player.body.velocity.x -= accelerationSpeed;}
+                    platforms = game.add.group();
+
+                    platforms.enableBody = true;
+
+                    let ground = platforms.create(0, 880, "brick");
+                    ground.scale.setTo(4,2);
+                    ground.body.immovable = true;
+
+                    let ledge = null;
+
+                    ledge = platforms.create(-150, 390, "brick");
+                    ledge.body.immovable =true;
+                    ledge = platforms.create(150, 550, "brick");
+                    ledge.body.immovable =true;
+                    ledge = platforms.create(0, 750, "brick");
+                    ledge.body.immovable =true;
+                    ledge = platforms.create(600, 700, "brick");
+                    ledge.body.immovable =true;
+                    ledge = platforms.create(800, 500, "brick");
+                    ledge.body.immovable =true;
 
 
-            }
-            else if (cursors.right.isDown){
-                if(player.body.velocity.x < maxVelocity){
-                    player.body.velocity.x += accelerationSpeed;
+                    player = game.add.sprite(0,780,'player1');
+
+                    player.animations.add('kek');
+                    //player.animations.add('move', Phaser.Animation.GenerateFrameNames('/assets/girl/girl/Run (',1,8,').png'), 10, true,false);
+                    player.animations.play('kek',10,true);
+                    player.scale.set(0.2);
+                    game.physics.arcade.enable(player);
+                    player.body.collideWorldBounds = true;
+                    player.body.setSize(260,505,145);
+                    player.body.bounce.y = 0.15;
+                    player.body.gravity.y = 500;
+
+                    if (choice===2){
+                        player2 = game.add.sprite(100,300,'player2');
+                        player2.animations.add('kok');
+                        player2.animations.play('kok',10,true);
+                        player2.scale.set(0.2);
+                        game.physics.arcade.enable(player2);
+                        player2.body.collideWorldBounds = true;
+                        player2.body.setSize(260,505,145);
+                        player2.body.bounce.y = 0.15;
+                        player2.body.gravity.y = 500;
+                        scoreText2 = game.add.text(5,20, "Score2: 0", {fontSize: "100px;", fill: "#fff"});
+
+                    }
+
+
+
+                    coin = game.add.sprite(Math.random() * 900,Math.random() * 1000,'coin');
+                    coin.animations.add('spin',Phaser.Animation.generateFrameNames('Coin',1,6,'.png'),10,true,false);
+                    coin.animations.play('spin', 10, true);
+                    game.physics.arcade.enable(coin);
+                    coin.body.gravity.y = 500;
+                    coin.collideWorldBounds = true;
+                    coin.body.bounce.y = 0.8;
+
+                    scoreText1 = game.add.text(5,5, "Score1: 0", {fontSize: "100px;", fill: "#fff"});
+
+
+                    timer = game.time.create();
+                    timerEvent = timer.add(Phaser.Timer.MINUTE * 1);
+
+                    // Start the timer
+                    timer.start();
+
+
+                    timeText = game.add.text(game.world.centerX,10,Math.round((timerEvent.delay - timer.ms) / 1000),{fontsize: "100px", fill:"#ff0"});
+                }
+
+                function update() {
+                    game.physics.arcade.collide(player, platforms);
+                    game.physics.arcade.collide(coin, platforms);
+                    game.physics.arcade.overlap(coin, player, collectCoin, null, this);
+
+                    let accelerationSpeed = 6;
+                    let maxVelocity = 200;
+                    let slowDownRate = 20;
+
+                    if (choice ===2){
+                        game.physics.arcade.collide(player2, player);
+                        game.physics.arcade.collide(player2, platforms);
+                        game.physics.arcade.overlap(coin, player2, collectCoin, null, this);
+                        if(wasd.left.isDown){
+                            if (player2.body.velocity.x > -maxVelocity)
+                            {player2.body.velocity.x -= accelerationSpeed;}
+
+
+                        }
+                        else if (wasd.right.isDown){
+                            if(player2.body.velocity.x < maxVelocity){
+                                player2.body.velocity.x += accelerationSpeed;
+                            }
+
+                        }
+                        else {
+                            if (player2.body.velocity.x > 0)
+                                player2.body.velocity.x -= slowDownRate;
+                            else if (player2.body.velocity.x < 0)
+                                player2.body.velocity.x += slowDownRate;
+                            if (Math.abs(player2.body.velocity.x)< slowDownRate)
+                                player2.body.velocity.x = 0;
+
+                        }
+
+                        if (wasd.up.isDown && player2.body.touching.down){
+
+                            player2.body.velocity.y=-450
+                        }
+
+                    }
+
+
+
+
+                    if(cursors.left.isDown){
+                        if (player.body.velocity.x > -maxVelocity)
+                        {player.body.velocity.x -= accelerationSpeed;}
+
+
+                    }
+                    else if (cursors.right.isDown){
+                        if(player.body.velocity.x < maxVelocity){
+                            player.body.velocity.x += accelerationSpeed;
+                        }
+
+                    }
+                    else {
+                        if (player.body.velocity.x > 0)
+                            player.body.velocity.x -= slowDownRate;
+                        else if (player.body.velocity.x < 0)
+                            player.body.velocity.x += slowDownRate;
+                        if (Math.abs(player.body.velocity.x)< slowDownRate)
+                            player.body.velocity.x = 0;
+
+                    }
+
+                    if (cursors.up.isDown && player.body.touching.down){
+
+                        player.body.velocity.y=-450
+                    }
+
+
+
+                    timeText.text= Math.round((timerEvent.delay - timer.ms) / 1000);
+
+                    if (Math.round(timer.ms / 1000 ) === 5){
+                        gameEnd();
+
+                    }
+
+
+                    function collectCoin(coin, player) {
+                        coin.kill();
+                        let y = Math.random() * 900;
+                        let x = Math.random() * 1000;
+                        coin.reset(x, y);
+                        if (player.key === 'player1') {
+                            score1 += 1;
+                            scoreText1.text = "Score1: " + score1;
+                        } else if (player.key === 'player2') {
+                            score2 += 1;
+                            scoreText2.text = "Score2: " + score2;
+                        }
+                    }
+
+
+
+                }
+
+                function gameEnd() {
+                    game.destroy();
+                    playone.fadeIn();
+                    playtwo.fadeIn();
+
+
                 }
 
             }
-            else {
-                if (player.body.velocity.x > 0)
-                    player.body.velocity.x -= slowDownRate;
-                else if (player.body.velocity.x < 0)
-                    player.body.velocity.x += slowDownRate;
-                if (Math.abs(player.body.velocity.x)< slowDownRate)
-                    player.body.velocity.x = 0;
 
-            }
+        });
 
-            if (cursors.up.isDown && player.body.touching.down){
-
-                player.body.velocity.y=-450
-            }
-
-            if(wasd.left.isDown){
-                if (player2.body.velocity.x > -maxVelocity)
-                {player2.body.velocity.x -= accelerationSpeed;}
-
-
-            }
-            else if (wasd.right.isDown){
-                if(player2.body.velocity.x < maxVelocity){
-                    player2.body.velocity.x += accelerationSpeed;
-                }
-
-            }
-            else {
-                if (player2.body.velocity.x > 0)
-                    player2.body.velocity.x -= slowDownRate;
-                else if (player2.body.velocity.x < 0)
-                    player2.body.velocity.x += slowDownRate;
-                if (Math.abs(player2.body.velocity.x)< slowDownRate)
-                    player2.body.velocity.x = 0;
-
-            }
-
-            if (wasd.up.isDown && player2.body.touching.down){
-
-                player2.body.velocity.y=-450
-            }
-
-            timeText.text= Math.round((timerEvent.delay - timer.ms) / 1000);
-
-            if (Math.round(timer.ms / 1000 ) === 5){
-
-            }
-
-
-        function collectCoin(coin, player) {
-            coin.kill();
-            let y = Math.random() * 900;
-            let x = Math.random() * 1000;
-            coin.reset(x, y);
-            if (player.key === 'player1') {
-                score1 += 1;
-                scoreText1.text = "Score1: " + score1;
-            } else if (player.key === 'player2') {
-                score2 += 1;
-                scoreText2.text = "Score2: " + score2;
-            }
-        }
-
-
-        }
 
 
 

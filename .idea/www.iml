@@ -6,15 +6,5 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jQuery-2.0.0" level="application" />
     <orderEntry type="library" name="jQuery UI-1.10.2" level="application" />
-    <orderEntry type="module-library">
-      <library name="PHP" type="php">
-        <CLASSES>
-          <root url="file://$APPLICATION_HOME_DIR$/bin" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$APPLICATION_HOME_DIR$/bin" />
-        </SOURCES>
-      </library>
-    </orderEntry>
   </component>
 </module>

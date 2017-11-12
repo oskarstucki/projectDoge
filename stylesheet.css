@@ -80,12 +80,30 @@ h2 {
     color: ghostwhite;
 }
 
+canvas {
+    //display: block;
+
+}
+
+.information{
+    padding-bottom: 10px;
+    display: block;
+}
+
 .deleteButton{
     font-size: 10px;
     float: right;
     //position: relative;
 
     display: inline-block;
+
+
+}
+
+.playerName{
+    margin-top:20px;
+    margin-bottom: 10px;
+    position: relative;
 
 
 }
