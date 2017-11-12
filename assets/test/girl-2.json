@@ -1,0 +1,100 @@
+{"frames": [
+
+{
+	"filename": "Dead (5).png",
+	"frame": {"x":1266,"y":268,"w":468,"h":300},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":53,"y":237,"w":468,"h":300},
+	"sourceSize": {"w":605,"h":604}
+},
+{
+	"filename": "Dead (6).png",
+	"frame": {"x":1266,"y":1,"w":480,"h":265},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":51,"y":274,"w":480,"h":265},
+	"sourceSize": {"w":605,"h":604}
+},
+{
+	"filename": "Idle (4).png",
+	"frame": {"x":312,"y":496,"w":308,"h":492},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":122,"y":23,"w":308,"h":492},
+	"sourceSize": {"w":641,"h":542}
+},
+{
+	"filename": "Idle (5).png",
+	"frame": {"x":1,"y":497,"w":309,"h":491},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":122,"y":24,"w":309,"h":491},
+	"sourceSize": {"w":641,"h":542}
+},
+{
+	"filename": "Idle (7).png",
+	"frame": {"x":622,"y":495,"w":309,"h":491},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":122,"y":24,"w":309,"h":491},
+	"sourceSize": {"w":641,"h":542}
+},
+{
+	"filename": "Idle (8).png",
+	"frame": {"x":620,"y":1,"w":308,"h":492},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":122,"y":23,"w":308,"h":492},
+	"sourceSize": {"w":641,"h":542}
+},
+{
+	"filename": "Idle (9).png",
+	"frame": {"x":310,"y":1,"w":308,"h":493},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":121,"y":22,"w":308,"h":493},
+	"sourceSize": {"w":641,"h":542}
+},
+{
+	"filename": "Jump (6).png",
+	"frame": {"x":930,"y":1,"w":334,"h":482},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":146,"y":40,"w":334,"h":482},
+	"sourceSize": {"w":641,"h":542}
+},
+{
+	"filename": "Melee (1).png",
+	"frame": {"x":1,"y":1,"w":307,"h":494},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":120,"y":21,"w":307,"h":494},
+	"sourceSize": {"w":641,"h":542}
+},
+{
+	"filename": "Slide (1).png",
+	"frame": {"x":933,"y":570,"w":435,"h":387},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":145,"w":435,"h":387},
+	"sourceSize": {"w":641,"h":542}
+},
+{
+	"filename": "Slide (2).png",
+	"frame": {"x":1370,"y":570,"w":435,"h":387},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":145,"w":435,"h":387},
+	"sourceSize": {"w":641,"h":542}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "girl-2.png",
+	"format": "RGBA8888",
+	"size": {"w":1806,"h":989},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:01468d8ea5737e68e365c3742761cc79:919fcfaf7226f9e742a5325e223d98e7:eb122395e9d239b3fa5a430ec3bf7781$"
+}
+}
