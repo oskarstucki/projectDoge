@@ -17,5 +17,9 @@ $stmt->execute(array(":username" => $_POST["username"], ":password" => $password
 
 
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-print(var_dump($rows));
-//print(json_encode($rows));
+if(count($rows) === 1){
+    $_SESSION["userId"] = $rows[0]["id"];
+    $_SESSION["realname"] = $rows[0]["realname"];
+
+    echo $_SESSION["userId"];
+}

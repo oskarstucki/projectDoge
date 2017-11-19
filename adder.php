@@ -17,6 +17,6 @@
     $stmt->execute(array(":f1" => $_POST["note"], ":f2" => $stamp));
 
     $rows = $stmt->fetchAll();
-    header("Location: index.php");
+    header("Location: notes.php");
     exit;
 

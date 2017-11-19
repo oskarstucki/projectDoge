@@ -13,10 +13,10 @@ if(isset($_GET["id"])) {
     $id = $_GET['id'];
     $stmt = $db->prepare("DELETE FROM notes WHERE id = $id");
     $stmt->execute(array($id));
-    header("Location: index.php");
+    header("Location: notes.php");
     exit;
 }
 else {
-    header("Location: index.php");
+    header("Location: notes.php");
     exit;
 }
