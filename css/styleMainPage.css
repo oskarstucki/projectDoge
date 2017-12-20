@@ -1,0 +1,337 @@
+
+html{
+    background:url(https://www.toptal.com/designers/subtlepatterns/patterns/dark_embroidery.png);
+    /* Background pattern from Subtle Patterns */
+    margin: 10px;
+}
+
+
+h1{
+    background: url("https://www.toptal.com/designers/subtlepatterns/patterns/gaming-pattern.png");
+    /* Background pattern from Subtle Patterns */
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 100px;
+    text-align: center;
+}
+
+h1 a{
+    text-decoration: none;
+    color: black;
+}
+
+#gif{
+    margin-right: 25%;
+    margin-left: 30%;
+    margin-top: 25%;
+
+}
+
+.fb-login-button{
+    float:right;
+    margin-top: 5px;
+}
+
+nav {
+    height: 40px;
+    background: url("https://www.toptal.com/designers/subtlepatterns/patterns/sos.png");
+    margin-bottom: 30px;
+}
+
+nav li{
+    float: left;
+    font-size: 100%;
+
+
+}
+
+nav .options li{
+    padding-left: 20px;
+}
+
+nav ul{
+    padding: 0;
+    list-style: none;
+    position: relative;
+    border-bottom: 1px solid #fff;
+    border-radius: 3px;
+}
+
+
+
+
+
+ul .logins{
+    float: right;
+
+}
+
+.options li{
+    margin-top: 8px;
+    font-size: 20px;
+}
+
+
+
+
+nav #login-trigger,
+nav #register-trigger,
+nav #signout a {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    height: 25px;
+    line-height: 25px;
+    font-weight: bold;
+    padding: 0 8px;
+    text-decoration: none;
+    color: #444;
+    text-shadow: 0 1px 0 #fff;
+}
+
+nav #signup a {
+    border-radius: 0 3px 3px 0;
+}
+
+nav #login-trigger {
+    border-radius: 3px 0 0 3px;
+}
+
+nav #login-trigger:hover,
+nav #login .active, a:hover {
+    background: #fff;
+}
+
+
+
+
+
+
+
+/*--------------------*/
+
+#inputs input {
+    background: #f1f1f1;
+    padding: 6px 5px;
+    margin: 0 0 5px 0;
+    width: 238px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px #ccc inset;
+}
+
+#inputs input:focus {
+    background-color: #fff;
+    border-color: #e8c291;
+    outline: none;
+    box-shadow: 0 0 0 1px #e8c291 inset;
+}
+
+/*--------------------*/
+
+/* login */
+
+nav #login-content {
+    position: absolute;
+    top: 24px;
+    z-index: 999;
+    background: #fff;
+    padding: 15px;
+    box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+    border-radius: 3px 0 3px 3px;
+}
+
+nav li #login-content {
+    right: 0;
+    margin-top: 10px;
+}
+
+nav #login {
+    border-right: 1px solid #ddd;
+    box-shadow: 1px 0 0 #fff;
+}
+
+#login #actions {
+    margin: 10px 0 0 0;
+}
+
+#login #submitIn {
+    background-color: #d14545;
+    background-image: linear-gradient(top, #e97171, #d14545);
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    text-shadow: 0 1px 0 rgba(0,0,0,.5);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+    border: 1px solid #7e1515;
+    float: left;
+    height: 30px;
+    padding: 0;
+    width: 100px;
+    cursor: pointer;
+    font: bold 14px Arial, Helvetica;
+    color: #fff;
+}
+
+#login #submitIn:hover,
+#login #submitIn:focus {
+    background-color: #e97171;
+    background-image: linear-gradient(top, #d14545, #e97171);
+}
+
+#login #submitIn:active {
+    outline: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
+}
+
+#login #submitIn::-moz-focus-inner {
+    border: none;
+}
+
+#login label {
+    float: right;
+    line-height: 30px;
+}
+
+#login label input {
+    position: relative;
+    top: 2px;
+    right: 2px;
+}
+
+
+/* register */
+
+nav #register-content {
+    position: absolute;
+    top: 24px;
+    z-index: 999;
+    background: #fff;
+    padding: 15px;
+    box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+    border-radius: 3px 0 3px 3px;
+}
+
+nav li #register-content {
+    right: 0;
+    margin-top: 10px;
+}
+
+
+#signup #actions {
+    margin: 10px 0 0 0;
+}
+
+#signup #submitReg {
+    background-color: #d14545;
+    background-image: linear-gradient(top, #e97171, #d14545);
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    text-shadow: 0 1px 0 rgba(0,0,0,.5);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+    border: 1px solid #7e1515;
+    float: left;
+    height: 30px;
+    padding: 0;
+    width: 100px;
+    cursor: pointer;
+    font: bold 14px Arial, Helvetica;
+    color: #fff;
+}
+
+#signup #submitReg:hover,
+#signup #submitReg:focus {
+    background-color: #e97171;
+    background-image: linear-gradient(top, #d14545, #e97171);
+}
+
+#signup #submitReg:active {
+    outline: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
+}
+
+#signup #submitReg::-moz-focus-inner {
+    border: none;
+}
+
+#signup label {
+    float: right;
+    line-height: 30px;
+}
+
+#signup label input {
+    position: relative;
+    top: 2px;
+    right: 2px;
+}
+
+
+/*  Logout*/
+
+nav #logout-content {
+    position: absolute;
+    top: 24px;
+    z-index: 999;
+    background: #fff;
+    padding: 15px;
+    box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
+    border-radius: 3px 0 3px 3px;
+}
+
+nav li #logout-content {
+    right: 0;
+    margin-top: 10px;
+}
+
+#signout #actions {
+    margin: 10px 0 0 0;
+}
+
+#signout #submitout {
+    background-color: #d14545;
+    background-image: linear-gradient(top, #e97171, #d14545);
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    text-shadow: 0 1px 0 rgba(0,0,0,.5);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+    border: 1px solid #7e1515;
+    float: left;
+    height: 30px;
+    padding: 0;
+    width: 100px;
+    cursor: pointer;
+    font: bold 14px Arial, Helvetica;
+    color: #fff;
+}
+
+#signout #submitout:hover,
+#signout #submitout:focus {
+    background-color: #e97171;
+    background-image: linear-gradient(top, #d14545, #e97171);
+}
+
+#signout #submitout:active {
+    outline: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
+}
+
+#signout #submitout::-moz-focus-inner {
+    border: none;
+}
+
+#signout label {
+    float: right;
+    line-height: 30px;
+}
+
+#signout label input {
+    position: relative;
+    top: 2px;
+    right: 2px;
+}

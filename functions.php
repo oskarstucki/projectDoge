@@ -41,4 +41,3 @@ function getWeather($city)
         print($result);
     }
 }
-

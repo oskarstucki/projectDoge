@@ -6,12 +6,14 @@
  * Time: 1:04 PM
  */
 
-$db = new PDO('mysql:host=localhost;dbname=www;charset=utf8', 'www', 'asd');
+require_once ("utils.php");
+main();
 
-$password = sha1($_POST["password"] . "slkfjewlköjrökwqrpoqroipjafalkfjölk");
+$password = sha1($_POST["Password"] . SALT);
 
-$stmt = $db->prepare("SELECT id, username FROM users WHERE username=:username AND password_hash=:password");
-$stmt->execute(array(":username" => $_POST["username"], ":password" => $password));
+$stmt = $db->prepare("SELECT id, username, lastName, firstName FROM users WHERE username=:username 
+                                AND password_hash=:password");
+$stmt->execute(array(":username" => $_POST["Email"], ":password" => $password));
 
 //$stmt->debugDumpParams();
 
@@ -19,7 +21,14 @@ $stmt->execute(array(":username" => $_POST["username"], ":password" => $password
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 if(count($rows) === 1){
     $_SESSION["userId"] = $rows[0]["id"];
-    $_SESSION["realname"] = $rows[0]["realname"];
+    $_SESSION["firstName"] = $rows[0]["firstName"];
+    $_SESSION["lastName"]=$rows[0]["lastName"];
+    $_SESSION["userName"]=$rows[0]["username"];
+    $_SESSION["logged"]= true;
 
-    echo $_SESSION["userId"];
+    //var_dump($rows);
+    //echo $_SESSION["userName"];
 }
+
+header("Location: index.php");
+exit;

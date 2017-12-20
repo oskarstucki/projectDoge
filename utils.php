@@ -6,15 +6,29 @@
  * Time: 1.54
  */
 
-
+define("SALT", "slkfjewlköjrökwqrpoqroipjafalkfjölk");
+$host = 'localhost';
+$user = 'www';
+$pass = 'asd';
+$db = 'www';
+$mysqli = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
+$db = new PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8',$user,$pass);
 function main(){
+    if(!isset($_SESSION)){
+        session_start();
+    }
+
     ?>
     <!DOCTYPE html>
     <html lang="fi">
     <head>
         <meta charset="UTF-8">
         <title>Oskun nettisivu</title>
-        <link rel="stylesheet" href="stylesheet.css">
+        <link rel="stylesheet" href="css/styleMainPage.css">
+        <script type="text/javascript" src="phaser.js"></script>
+
+        <link rel="stylesheet" href="css/weatherStyle.css">
+<!--        <link rel="stylesheet" href="stylesheet.css">-->
     </head>
     <body>
     <script
@@ -24,6 +38,17 @@ function main(){
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
     <script src="script.js"></script>
+    <h1><a href="index.php">Oskarin nettisivu</a></h1>
+
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+            let js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=132934150742997';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
 
 
     <?php
@@ -31,64 +56,123 @@ function main(){
 
 function navigation(){
     ?>
+
     <nav>
-        <nav>
-            <ul>
+        <ul>
+
+            <div class="options">
                 <li><a href="notes.php">Muistilista</a></li>
                 <li><a href="game.php">Peli</a></li>
                 <li><a href="weather.php">Sää</a></li>
-            </ul>
-        </nav>
+            </div>
+
+            <div class="logins">
+                <?php
+                    login();
+                   ?>
+            </div>
+
+        </ul>
+
     </nav>
 
     <?php
 }
 
+function login(){
+
+    if(!isset($_SESSION["firstName"])){
+    ?>
+    <li id="login">
+        <a id="login-trigger" href="#">
+            Kirjaudu <span>▼</span>
+        </a>
+        <div id="login-content" hidden>
+            <form action="login.php" method="post">
+                <fieldset id="inputs">
+                    <input id="username" type="email" name="Email" placeholder="Sähköposti" required>
+                    <input id="password" type="password" name="Password" placeholder="Salasana" required>
+                </fieldset>
+                <fieldset id="actions">
+                    <input type="submit" id="submitIn" value="Kirjaudu">
+                </fieldset>
+            </form>
+        </div>
+    </li>
+
+    <li id="signup">
+        <a id="register-trigger" href="#">
+            Rekisteröidy <span>▼</span>
+        </a>
+        <div id="register-content" hidden>
+            <form action="register.php" method="post">
+                <fieldset id="inputs">
+                    <p>Sähköposti</p>
+                    <input id="usernameReg" type="email" name="Email" placeholder="Sähköposti/Käyttäjätunnus" required>
+                    <p>etunimi</p>
+                    <input id="firstName" name="firstName" placeholder="Etunimi"  required>
+                    <p>sukunimi</p>
+                    <input id="lastName" name="lastName" placeholder="Sukunimi" required>
+                    <p>salasana</p>
+                    <input id="password" type="password" name="password" placeholder="Salasana" required>
+                    <input id="password2" type="password" name="password2" placeholder="Salasana uudestaan" required>
+
+                </fieldset>
+                <fieldset id="actions">
+                    <input type="submit" id="submitReg" value="Rekisteröidy">
+                    <div class="fb-login-button" data-max-rows="1" data-size="medium"
+                         data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false"
+                         data-use-continue-as="false"></div>
+                </fieldset>
+            </form>
+        </div>
+    </li>
+    <?php
+    }else if(isset($_SESSION["firstName"])){
+        ?>
+        <li id="signout">
+            <a id="logout-trigger" href="#">
+                Kirjaudu ulos <span>▼</span>
+            </a>
+            <div id="logout-content" hidden>
+                <form action="logout.php" method="post">
+                    <fieldset id="inputs">
+                        <p><?php echo"Kirjauneena: ". $_SESSION["firstName"]." ". $_SESSION["lastName"] ?> </p>
+                    </fieldset>
+                    <fieldset id="actions">
+                        <input type="submit" id="submitout" value="Kirjaudu ulos">
+                    </fieldset>
+                </form>
+            </div>
+
+        </li>
+
+
+
+        <?php
+
+    }
+}
+
 function front(){
     main();
-
-    ?>
-    <h1>Oskarin nettisivu</h1>
-
-    <?php
-    navigation();
-}
-
-function notes(){
-    main();
-
-    ?>
-    <h1>Muistilista</h1>
-    <?php
     navigation();
     ?>
-    <div class="form">
-        <h2>uusi asia</h2>
-        <!--<form action="adder.php" method="post" id="adder">
-
-        </form>-->
-        <div id="form">
-            <input class="newThings" title="newThing" type="text" name="note">
-            <button id="formBut">send</button>
-        </div>
-        <ul id="list"></ul>
+    <div id="gif">
+        <img id="epicWalk" src="http://i.imgur.com/ncXgEgn.gif">
     </div>
 
-    </body>
-    </html>
     <?php
+
 }
+
 
 function game(){
     main();
-    ?>
-
-    <h1>GAME</h1>
-
-    <?php
     navigation();
     ?>
-
+    <link rel="stylesheet" href="css/gameStyle.css">
+    <link rel="stylesheet" href="css/noteStyle.css">
     <div class="information">
         <button id="playerChoice1">1 Pelaaja</button> <button id="playerChoice2">2 Pelaajaa</button>
         <button id="register">Rekisteröidy</button>
@@ -96,6 +180,7 @@ function game(){
 
 
     </div>
+
     <div id="scoreboard">
         <ul class="list">
         </ul>
@@ -161,7 +246,7 @@ function game(){
                 playone.on('click',function () {
                     $('.p1').fadeOut().remove();
                     inffo.append('<div class="p1"><input id="playerName" title="playerName" type="text" placeholder="Käyttäjänimi"></div>');
-                    inffo.append('<div class="p1"><input placeholder="salasana" id="password" title="playerName" type="text" name="note"></div>');
+                    //inffo.append('<div class="p1"><input placeholder="salasana" id="password" title="playerName" type="text" name="note"></div>');
 
                     inffo.append('<div class="p1"><button id="submit">Pelaa</button> </div>')
                     $('#submit').on('click',function () {
@@ -169,7 +254,7 @@ function game(){
                         if($('#playerName').val() === ""){
 
                         }else{
-                            $.post("login.php", {username: $('#playerName').val(), password: $('#password').val()})
+                            /*$.post("login.php", {username: $('#playerName').val(), password: $('#password').val()})
                                 .done(function(data){
 
                                 game(1,data);
@@ -180,8 +265,14 @@ function game(){
                                 $('.list').empty();
 
 
-                            },'json');
+                            },'json');*/
+                            game(1,$('#playerName').val());
 
+                            playone.fadeOut();
+                            playtwo.fadeOut();
+                            register.fadeOut();
+                            $('.p1').fadeOut().remove();
+                            $('.list').empty();
 
                             }});
 
@@ -194,14 +285,20 @@ function game(){
                 playtwo.on('click',function () {
                     $('.p1').fadeOut().remove();
                     inffo.append('<div class="p1"><input placeholder="Käyttäjänimi" id="playerName" title="playerName" type="text" name="note"></div>');
-                    inffo.append('<div class="p1"><input placeholder="salasana" id="password" title="playerName" type="text" name="note"></div>');
+                    //inffo.append('<div class="p1"><input placeholder="salasana" id="password" title="playerName" type="text" name="note"></div>');
 
                     inffo.append('<div class="p1"><input placeholder="Käyttäjänimi"id="playerName2" title="playerName" type="text" name="note"></div>');
-                    inffo.append('<div class="p1"><input placeholder="salasana" id="password2" title="playerName" type="text" name="note"></div>');
+                    //inffo.append('<div class="p1"><input placeholder="salasana" id="password2" title="playerName" type="text" name="note"></div>');
 
                     inffo.append('<div class="p1"><button id="submit">Pelaa</button> </div>');
                     $('#submit').on('click',function () {
-                        if($('#playerName').val() === "" || $('#playerName2').val() === "" || $('#password').val() ===""
+                        game(2,$('#playerName').val(), $('#playerName2').val());
+                        playone.fadeOut();
+                        playtwo.fadeOut();
+                        register.fadeOut();
+                        $('.p1').fadeOut().remove();
+                        $('.list').empty();
+                        /*if($('#playerName').val() === "" || $('#playerName2').val() === "" || $('#password').val() ===""
                             || $('#password2').val() ===""){
 
                         }else{
@@ -223,14 +320,14 @@ function game(){
 
 
 
-                        }
+                        }*/
 
                     });
                 });
 
 
-                function game(choice, id1, id2) {
-                    id2 = id2 || 0;
+                function game(choice, player1Name, player2Name) {
+                    player2Name = player2Name|| 0;
                     let game = new Phaser.Game(1000, 900,Phaser.AUTO,"phaser-game",{preload: preload, create: create, update: update});
 
                     function preload() {
@@ -412,7 +509,7 @@ function game(){
 
                         timeText.text= Math.round((timerEvent.delay - timer.ms) / 1000);
 
-                        if (Math.round(timer.ms / 1000 ) === 5){
+                        if (Math.round(timer.ms / 1000 ) === 10){
                             gameEnd();
 
                         }
@@ -432,7 +529,7 @@ function game(){
                                 scoreText1.text = "Score "+player1Name+": "+ score1;
                             } else if (player.key === 'player2') {
                                 score2 += 1;
-                                scoreText2.text = "Score "+player2Name+": "+ score1;
+                                scoreText2.text = "Score "+player2Name+": "+ score2;
                             }
                         }
 
@@ -442,6 +539,7 @@ function game(){
 
                     function gameEnd() {
                         game.destroy();
+
                         playone.fadeIn();
                         playtwo.fadeIn();
                         register.fadeIn();
@@ -450,7 +548,7 @@ function game(){
                             url: "addergame.php",
                             data: {"name": player1Name,
                                     "score": score1,
-                                    "playerid": id1}
+                                    "playerid": 132}
 
                         });
                         if(choice === 2){
@@ -458,11 +556,14 @@ function game(){
                                 type: "POST",
                                 url: "addergame.php",
                                 data: {"name": player2Name,
-                                    "score": score2}
+                                    "score": score2,
+                                    "playerid": 123}
 
                             });
                         }
                         printer();
+                        score1 = 0;
+                        score2 = 0;
 
 
 
@@ -500,7 +601,7 @@ function game(){
                             sorted.forEach(function (entry) {
                                 if (entry.player === player1Name || entry.player === player2Name){
                                     if(entry.place>top){
-                                        noteList.append("<li>"+entry.place+"  Pelaaja: "+entry.player+"<br>" +
+                                        noteList.append("<li id='list' >"+entry.place+"  Pelaaja: "+entry.player+"<br>" +
                                             "Pisteet:"+ entry.score+"</li>");
                                     }
                                 }
@@ -524,5 +625,6 @@ function game(){
     </div>
     <?php
 }
+
 
 

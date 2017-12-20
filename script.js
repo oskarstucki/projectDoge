@@ -13,12 +13,38 @@ function printer(){
 
 
 
+
     });
 
 }
 
 $(document).ready(function () {
+
+    /* Facebook-kirjautuminen*/
+
+    $.ajaxSetup({ cache: true });
+    $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+        FB.init({
+            appId: '132934150742997',
+            version: 'v2.11' // or v2.1, v2.2, v2.3, ...
+        });
+        $('#loginbutton,#feedbutton').removeAttr('disabled');
+        FB.getLoginStatus(function (response) {
+            //console.log(response);
+            FB.api('/me',function (response) {
+                //console.log(response);
+            });
+        });
+
+
+    });
+
+
+    /*Muistilista*/
+
     printer();
+
+
     let input = $(".newThings");
     let list = $("#list");
     let elementNumber=0;
@@ -63,6 +89,62 @@ $(document).ready(function () {
 
 
     });
+
+
+    /*Login-palkin script */
+
+    /* Paljastuminen*/
+
+    $('#login-trigger').click(function(){
+        registerDown($(this));
+    });
+
+    $('#register-trigger').click(function(){
+        registerDown($(this));
+
+    });
+
+    $('#logout-trigger').click(function(){
+        registerDown($(this));
+
+    });
+
+    function registerDown(thisObj) {
+        if(thisObj.attr('id') === 'register-trigger'){
+            thisObj.next('#register-content').slideToggle();
+            if ($('#login-content').is(":visible")){
+                $('#login-content').slideToggle(200);
+            }
+
+        } else if(thisObj.attr('id') === 'login-trigger'){
+            thisObj.next('#login-content').slideToggle();
+            if ($('#register-content').is(":visible")){
+                $('#register-content').slideToggle(200);
+            }
+
+        }
+
+        else {
+            thisObj.next('#logout-content').slideToggle();
+
+        }
+
+        thisObj.toggleClass('active');
+
+        if (thisObj.hasClass('active')){
+            thisObj.find('span').html('&#x25B2;')
+        }
+        else {
+            thisObj.find('span').html('&#x25BC;')
+        }
+
+    }
+
+    /*Salasanan tarkistus ja hyväksyminen*/
+
+
+
+
 
 
 });

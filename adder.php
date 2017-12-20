@@ -6,15 +6,14 @@
  * Time: 4:41 AM
  */
 
+    require_once ("utils.php");
+    main();
 
-    $db = new PDO('mysql:host=localhost;dbname=www;charset=utf8', 'www', 'asd');
-
-
-    $stmt = $db->prepare("INSERT INTO notes(note, timeanddate) VALUES(:f1, :f2)");
+    $stmt = $db->prepare("INSERT INTO Information(text, userId,timeanddate, application) VALUES(:f1, :f2, :f3, :f4)");
     $date = new DateTime();
     $stamp= date("Y-m-d H:i:s", $date->getTimestamp());
 
-    $stmt->execute(array(":f1" => $_POST["note"], ":f2" => $stamp));
+    $stmt->execute(array(":f1" => $_POST["note"], ":f2"=>$_SESSION["userName"],":f3" => $stamp, ":f4" => $_SESSION["app"]));
 
     $rows = $stmt->fetchAll();
     header("Location: notes.php");

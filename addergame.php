@@ -14,7 +14,7 @@ $stmt = $db->prepare("INSERT INTO CoinGame(playername, score, timeanddate, playe
 $date = new DateTime();
 $stamp= date("Y-m-d H:i:s", $date->getTimestamp());
 
-$stmt->execute(array(":f1" => $_POST["name"], ":f2" => $_POST["score"], ":f3" => $stamp, ":f2" => $_POST["playerid"]));
+$stmt->execute(array(":f1" => $_POST["name"], ":f2" => $_POST["score"], ":f3" => $stamp, ":f4" => $_POST["playerid"]));
 
 $rows = $stmt->fetchAll();
 header("Location: game.php");

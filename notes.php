@@ -1,19 +1,24 @@
 <?php
 
-session_start();
 require_once("utils.php");
 
-notes();
+main();
+navigation();
+$_SESSION["app"] = "notes";
+?>
+<link rel="stylesheet" href="css/noteStyle.css">
+<div class="notes">
+    <h2>uusi asia</h2>
+    <!--<form action="adder.php" method="post" id="adder">
 
-/*
-if($_GET["p"] === "add"){
-    require("adder.php");
+    </form>-->
+    <div id="noteInput">
+        <input class="newThings" title="newThing" type="text" name="note">
+        <button id="formBut">send</button>
+    </div>
+    <ul id="list"></ul>
+</div>
 
-}
-else if($_GET["p"] === "remove"){
+<?php
 
-} else{
-    require("adder.php");
-
-}*/
 

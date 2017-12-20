@@ -1,0 +1,76 @@
+.form ul {
+
+    right: 5%;
+    list-style-type: none;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    word-break: break-all;
+    width: 80%;
+    word-wrap: break-word;
+
+
+
+}
+
+
+.list li {
+    background: url("https://www.toptal.com/designers/subtlepatterns/patterns/sos.png");
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-spacing: 100px;
+    tab-size: 15px ;
+    overflow: hidden;
+    list-style: none;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    text-align: center;
+    padding: 10px;
+    font-size: 150%;
+}
+
+input{
+    margin-top: 10px;
+    margin-left: 25%;
+
+}
+
+h2 {
+    vertical-align: middle;
+    color: ghostwhite;
+    margin-left: 40%;
+    margin-right: 35%;
+    width: 50%;
+    font-size: 50px;
+    position: relative;
+    display: inline-block;
+}
+
+.deleteButton{
+     margin-top: 5px;
+    font-size: 10px;
+    float: right;
+    display: inline-block;
+
+
+}
+
+
+
+.inside {
+    color: red;
+
+}
+
+.newThings{
+    height: 50px;
+    width: 500px;
+}
+
+#formBut{
+    height: 55px;
+    width: 100px;
+}
+
