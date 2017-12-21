@@ -6,15 +6,60 @@ function printer(){
     $.getJSON("printer.php", function (data) {
         noteList.empty();
         data.forEach(function (entry) {
-                noteList.append("<li id='"+entry.id+"'>"+entry.note+"<button class='deleteButton' value='Poista'>Poista</button></li>")
+                noteList.append("<li class='list' id='"+entry.id+"'>"+entry.text+"<button class='deleteButton' value='Poista'>Poista</button></li>")
             }
 
         );
 
+    });
+
+}
+
+function gamePrinter(player1Name, player2Name, player2score) {
 
 
+
+    let noteList = $(".list");
+    $("#scoreboard").before("<h2 id='top5'>TOP 5</h2>");
+    $.getJSON("printer.php", function (data) {
+        let sorted = [];
+        if (typeof player2Name !== 'undefined' && typeof player2score !== 'undefined'){
+            sorted.push({place: 0, score: player2score, player: player2Name });
+        }
+
+
+
+        data.forEach(function (entry) {
+            sorted.push({place: 0, score: entry.text, player: entry.userId})
+
+
+        });
+
+        sorted.sort(function (a, b) {
+            return b.score - a.score;
+
+        });
+        let place = 1;
+
+        sorted.forEach(function (entry) {
+            entry.place = place;
+            place++;
+        });
+        let top;
+        if (sorted.length > 5){
+            top = 5;
+        }else{
+            top = sorted.length;
+        }
+
+
+        for (let i = 0; i < top; i++) {
+            noteList.append("<li>" + sorted[i].place + "  Pelaaja: " + sorted[i].player + "<br>" +
+                "Pisteet:" + sorted[i].score + "</li>");
+        }
 
     });
+
 
 }
 
@@ -30,9 +75,9 @@ $(document).ready(function () {
         });
         $('#loginbutton,#feedbutton').removeAttr('disabled');
         FB.getLoginStatus(function (response) {
-            //console.log(response);
+            console.log(response);
             FB.api('/me',function (response) {
-                //console.log(response);
+                console.log(response);
             });
         });
 
@@ -66,7 +111,7 @@ $(document).ready(function () {
         let buttonId = $(this).parent("li").attr("id");
         $( this).parent("li").fadeOut(function(){ $( this ).parent("li").remove(); });
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: "delete.php",
             data: {"id": buttonId}
         });
@@ -82,7 +127,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: url,
-            data: {"note": noteVar}
+            data: {"info": noteVar}
 
         });
         printer();

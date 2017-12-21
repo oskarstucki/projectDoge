@@ -1,0 +1,16 @@
+#list li {
+    background: url("https://www.toptal.com/designers/subtlepatterns/patterns/sos.png");
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-spacing: 100px;
+    tab-size: 15px ;
+    overflow: hidden;
+    list-style: none;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    text-align: center;
+    padding: 10px;
+    font-size: 150%;
+}

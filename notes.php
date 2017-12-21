@@ -5,6 +5,7 @@ require_once("utils.php");
 main();
 navigation();
 $_SESSION["app"] = "notes";
+
 ?>
 <link rel="stylesheet" href="css/noteStyle.css">
 <div class="notes">

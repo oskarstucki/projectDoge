@@ -5,7 +5,6 @@
  * Date: 11/26/17
  * Time: 9:12 PM
  */
-
 session_start();
 session_unset();
 session_destroy();
