@@ -68,20 +68,70 @@ $(document).ready(function () {
     /* Facebook-kirjautuminen*/
 
     $.ajaxSetup({ cache: true });
-    $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+
+
+    window.fbAsyncInit = function() {
+        // FB JavaScript SDK configuration and setup
         FB.init({
-            appId: '132934150742997',
-            version: 'v2.11' // or v2.1, v2.2, v2.3, ...
+            appId      : '132934150742997', // FB App ID
+            cookie     : true,  // enable cookies to allow the server to access the session
+            xfbml      : true,  // parse social plugins on this page
+            version    : 'v2.8' // use graph api version 2.8
         });
-        $('#loginbutton,#feedbutton').removeAttr('disabled');
-        FB.getLoginStatus(function (response) {
-            console.log(response);
-            FB.api('/me',function (response) {
-                console.log(response);
+
+        // Check whether the user already logged in
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                //display user data
+                getFbUserData();
+            }
+        });
+    };
+
+// Load the JavaScript SDK asynchronously
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+// Facebook login with JavaScript SDK
+    function fbLogin() {
+        FB.login(function (response) {
+            if (response.authResponse) {
+                // Get and display the user profile data
+                getFbUserData();
+            } else {
+                document.getElementById('status').innerHTML = 'User cancelled login or did not fully authorize.';
+            }
+        }, {scope: 'email'});
+    }
+
+// Fetch the user profile data from facebook
+    function getFbUserData(){
+        FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'},
+            function (response) {
+                $.ajax({
+                    type: "POST",
+                    url: "register.php",
+                    data: {"Email": response.email,
+                            "userName": response.first_name,
+                            "firstName": response.first_name,
+                            "lastName": response.last_name,
+                            "password": response.id,
+                            "fb": true}
+                });
             });
+    }
+
+// Logout from facebook
+    $("#submitout").on("click",function () {
+        FB.logout(function(response) {
+            console.log(response)
+
         });
-
-
     });
 
 

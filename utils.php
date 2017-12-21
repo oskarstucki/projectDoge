@@ -133,7 +133,7 @@ function login(){
             <form action="register.php" method="post">
                 <fieldset id="inputs">
                     <p>Sähköposti</p>
-                    <input id="usernameReg" type="email" name="Email" placeholder="Sähköposti/Käyttäjätunnus" required>
+                    <input id="mail" type="email" name="Email" placeholder="Sähköposti/Käyttäjätunnus" required>
                     <p>Käyttäjänimi</p>
                     <input id="userName" name="userName" placeholder="Käyttäjänimi"  required>
                     <p>etunimi</p>

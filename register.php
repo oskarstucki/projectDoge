@@ -17,7 +17,25 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 if(count($rows) === 1){
     echo "Käyttäjänimi on jo tehty!";
 }else {
-    if($_POST["password"] == $_POST["password2"]){
+    if(isset($_POST["fb"])){
+
+        $_SESSION["userName"] = $_POST["userName"];
+        $_SESSION["firstName"] = $_POST["firstName"];
+        $_SESSION["lastName"] = $_POST["lastName"];
+        $_SESSION["email"] = $_POST["Email"];
+
+
+        $password = sha1($_POST["password"] . SALT);
+
+
+        $stmt = $db->prepare("INSERT INTO users(email, username, password_hash, firstName, lastName) 
+          VALUES(:f1, :f2, :f3, :f4, :f5)");
+
+        $stmt->execute(array(":f1" => $_POST["Email"], ":f2" => $_POST["userName"],":f3" => $password,
+            ":f4" => $_POST["firstName"], ":f5" => $_POST["lastName"]));
+    }
+    else{
+        if($_POST["password"] == $_POST["password2"]){
         if(strlen($_POST["password"])> 7){
             if (!preg_match('/[^A-Za-z0-9]/', $_POST["password"]))
             {
@@ -55,7 +73,8 @@ if(count($rows) === 1){
 
     } else{
         echo "Salasanat eivät täsmää!";
-    }
+    }}
+
 }
 
 
