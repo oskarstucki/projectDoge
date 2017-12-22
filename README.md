@@ -29,6 +29,8 @@ phpserver:
    
 scripts:
    - Different javascript functions. Mainly jquery functions, fb login and phaser file. 
+   -Unfortunately fb-login doesn't work on cloud9 because the url cannot be appended to fb database. But it is
+   implemented.
    
 main folder:
    - The site files that are showed to the user. User must not access the other files. 
