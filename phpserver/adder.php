@@ -6,7 +6,7 @@
  * Time: 4:41 AM
  */
 
-    require_once ("utils.php");
+    require_once("utils.php");
     session_start();
 
     if(isset($_POST["name"])){
@@ -25,6 +25,5 @@
     $stmt->execute(array(":f1" => $_POST["info"], ":f2"=>$user,":f3" => $stamp, ":f4" => $_SESSION["app"]));
 
     $rows = $stmt->fetchAll();
-    header("Location: notes.php");
     exit;
 

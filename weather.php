@@ -1,10 +1,6 @@
 <?php
-require_once("utils.php");
+require_once("phpserver/utils.php");
 
-?>
-<h1>Säätiedot</h1>
-
-<?php
 
 main();
 navigation();

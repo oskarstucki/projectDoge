@@ -3,7 +3,7 @@
 
 function printer(){
     let noteList = $("#list");
-    $.getJSON("printer.php", function (data) {
+    $.getJSON("../phpserver/printer.php", function (data) {
         noteList.empty();
         data.forEach(function (entry) {
                 noteList.append("<li class='list' id='"+entry.id+"'>"+entry.text+"<button class='deleteButton' value='Poista'>Poista</button></li>")
@@ -20,8 +20,8 @@ function gamePrinter(player1Name, player2Name, player2score) {
 
 
     let noteList = $(".list");
-    $("#scoreboard").before("<h2 id='top5'>TOP 5</h2>");
-    $.getJSON("printer.php", function (data) {
+    $("#scoreboard").before("<h2 id='top5'>TOP 5 sivunlaajuisesti ja oma paras</h2>");
+    $.getJSON("phpserver/printerGame.php", function (data) {
         let sorted = [];
         if (typeof player2Name !== 'undefined' && typeof player2score !== 'undefined'){
             sorted.push({place: 0, score: player2score, player: player2Name });
@@ -30,8 +30,8 @@ function gamePrinter(player1Name, player2Name, player2score) {
 
 
         data.forEach(function (entry) {
+            console.log(entry.text);
             sorted.push({place: 0, score: entry.text, player: entry.userId})
-
 
         });
 
@@ -53,9 +53,19 @@ function gamePrinter(player1Name, player2Name, player2score) {
         }
 
 
-        for (let i = 0; i < top; i++) {
-            noteList.append("<li>" + sorted[i].place + "  Pelaaja: " + sorted[i].player + "<br>" +
-                "Pisteet:" + sorted[i].score + "</li>");
+        for (let i = 0; i < sorted.length; i++) {
+            if(i<top){
+                noteList.append("<li>" + sorted[i].place + "  Pelaaja: " + sorted[i].player + "<br>" +
+                    "Pisteet:" + sorted[i].score + "</li>");
+            }if(i>= top){
+                if (sorted[i].player === player1Name) {
+                    noteList.append("<li>" + sorted[i].place + "  Pelaaja: " + sorted[i].player + "<br>" +
+                        "Pisteet:" + sorted[i].score + "</li>");
+                    break;
+
+                }
+
+            }
         }
 
     });
@@ -115,7 +125,7 @@ $(document).ready(function () {
             function (response) {
                 $.ajax({
                     type: "POST",
-                    url: "register.php",
+                    url: "phpserver/register.php",
                     data: {"Email": response.email,
                             "userName": response.first_name,
                             "firstName": response.first_name,
@@ -129,6 +139,7 @@ $(document).ready(function () {
 // Logout from facebook
     $("#submitout").on("click",function () {
         FB.logout(function(response) {
+            window.location.reload();
             console.log(response)
 
         });

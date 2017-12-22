@@ -6,10 +6,10 @@
  * Time: 12:21 PM
  */
 session_start();
-require_once ("utils.php");
+require_once("utils.php");
 
 
     $stmt = $db->prepare("DELETE FROM Information WHERE id = ".$_POST["id"]);
     $stmt->execute();
-    header("Location: notes.php");
+
     exit;

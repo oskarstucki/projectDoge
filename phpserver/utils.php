@@ -25,7 +25,7 @@ function main(){
         <meta charset="UTF-8">
         <title>Oskun nettisivu</title>
         <link rel="stylesheet" href="css/styleMainPage.css">
-        <script type="text/javascript" src="phaser.js"></script>
+        <script type="text/javascript" src="scripts/phaser.js"></script>
 
         <link rel="stylesheet" href="css/weatherStyle.css">
 <!--        <link rel="stylesheet" href="stylesheet.css">-->
@@ -38,7 +38,7 @@ function main(){
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
-    <script src="script.js"></script>
+    <script src="scripts/script.js"> "use strict" ;</script>
 
     <h1><a href="index.php"><?php if(isset($_SESSION["firstName"])){echo($_SESSION["firstName"]);}?> oma nettisivu</a></h1>
 
@@ -51,7 +51,6 @@ function main(){
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
-
 
     <?php
 }
@@ -72,15 +71,40 @@ function navigation(){
     ?>
 
     <nav>
+        <script>
+            function openNav() {
+                document.getElementById("myNav").style.width = "100%";
+            }
+
+            function closeNav() {
+                document.getElementById("myNav").style.width = "0%";
+            }
+        </script>
+
         <ul>
+            <div class="logins">
+                <?php
+                login();
+                ?>
+
+            </div>
 
             <div class="options">
+
+
                 <?php
                 if(isset($_SESSION["userName"])) {
                     ?>
-                    <li><a href="notes.php">Muistilista</a></li>
-                    <li><a href="game.php">Peli</a></li>
-                    <li><a href="weather.php">Sää</a></li>
+                    <span class="naviBar" style="cursor:pointer" onclick="openNav()">&#9776; VALIKKO</span>
+                    <div id="myNav" class="overlay">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        <div class="overlay-content">
+                            <a href="notes.php">Muistilista</a>
+                            <a href="game.php">Peli</a>
+                            <a href="weather.php">Sää</a>
+                        </div>
+                    </div>
+
                     <?php
                 }else{
                     ?>
@@ -91,11 +115,7 @@ function navigation(){
 
             </div>
 
-            <div class="logins">
-                <?php
-                    login();
-                   ?>
-            </div>
+
 
         </ul>
 
@@ -113,13 +133,16 @@ function login(){
             Kirjaudu <span>▼</span>
         </a>
         <div id="login-content" hidden>
-            <form action="login.php" method="post">
+            <form action="phpserver/login.php" method="post">
                 <fieldset id="inputs">
                     <input id="username" type="email" name="Email" placeholder="Sähköposti" required>
                     <input id="password" type="password" name="Password" placeholder="Salasana" required>
                 </fieldset>
                 <fieldset id="actions">
                     <input type="submit" id="submitIn" value="Kirjaudu">
+                    <div class="fb-login-button" data-max-rows="1" data-size="medium"
+                         data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false"
+                         data-use-continue-as="false"></div>
                 </fieldset>
             </form>
         </div>
@@ -130,10 +153,10 @@ function login(){
             Rekisteröidy <span>▼</span>
         </a>
         <div id="register-content" hidden>
-            <form action="register.php" method="post">
+            <form action="phpserver/register.php" method="post">
                 <fieldset id="inputs">
                     <p>Sähköposti</p>
-                    <input id="mail" type="email" name="Email" placeholder="Sähköposti/Käyttäjätunnus" required>
+                    <input id="usernameReg" type="email" name="Email" placeholder="Sähköposti/Käyttäjätunnus" required>
                     <p>Käyttäjänimi</p>
                     <input id="userName" name="userName" placeholder="Käyttäjänimi"  required>
                     <p>etunimi</p>
@@ -162,7 +185,7 @@ function login(){
                 Kirjaudu ulos <span>▼</span>
             </a>
             <div id="logout-content" hidden>
-                <form action="logout.php" method="post">
+                <form action="phpserver/logout.php" method="post">
                     <fieldset id="inputs">
                         <p><?php echo"Kirjauneena: ". $_SESSION["firstName"]." ". $_SESSION["lastName"] ?> </p>
                     </fieldset>
@@ -239,15 +262,17 @@ function game(){
             playone.on('click', function () {
                 $('.p1').fadeOut().remove();
                 inffo.append('<div class="p1"><input value=<?php echo $_SESSION["userName"] ?> id="playerName" title="playerName" type="text" placeholder="Käyttäjänimi"></div>');
-
-                inffo.append('<div class="p1"><button id="startGame">Pelaa</button> </div>')
+                inffo.append('<input id="gameTime" placeholder="Peliaika">');
+                inffo.append('<div class="p1"><button id="startGame">Pelaa</button></div>');
                 $('#startGame').on('click', function () {
 
-                    if ($('#playerName').val() !== "") {
+                    if ($('#playerName').val() !== "" && $("#gameTime").val() !== "") {
                         game(1, $('#playerName').val());
+                        $("#scoreboard").before("<h3 id='fullInfo'>Paina pelistä saadaksesi se koko näytölle</h3>");
 
                         playone.fadeOut();
                         playtwo.fadeOut();
+                        $("#gameTime").fadeOut();
                         $('.p1').fadeOut().remove();
                         $('.list').empty();
                         $('#top5').fadeOut().remove();
@@ -264,20 +289,27 @@ function game(){
                 inffo.append('<div class="p1"><input placeholder="Käyttäjänimi vierailijalle"id="playerName2" title="playerName" type="text" name="note"></div>');
 
 
-                inffo.append('<div class="p1"><button id="submit">Pelaa</button> </div>');
+                inffo.append('<div class="p1"><button id="submit">Pelaa</button></div>');
                 $('#submit').on('click', function () {
-                    game(2, $('#playerName').val(), $('#playerName2').val()+" guest");
-                    playone.fadeOut();
-                    playtwo.fadeOut();
-                    $('.p1').fadeOut().remove();
-                    $('.list').empty();
-                    $('#top5').fadeOut().remove();
+
+                    if ($('#playerName').val() !== "" && $('#playerName2').val() !== "" && $('#gameTime').val() !== "") {
+                        game(2, $('#playerName').val(), $('#playerName2').val() + " guest");
+                        playone.fadeOut();
+                        playtwo.fadeOut();
+                        $("#gameTime").fadeOut();
+                        inffo.append('<div class="p1"><h2>Paina pelistä saadaksesi se koko näytölle</h2></div>');
+
+                        $('.p1').fadeOut().remove();
+                        $('.list').empty();
+                        $('#top5').fadeOut().remove();
+                    }
 
                 });
             });
 
 
                 function game(choice, player1Name, player2Name) {
+                    let gameTime;
                     console.log(player2Name);
                     player2Name = player2Name || 0;
                     let game = new Phaser.Game(1000, 900, Phaser.AUTO, "phaser-game", {
@@ -304,7 +336,28 @@ function game(){
 
                     }
 
+                    function gofull() {
+
+                        if (game.scale.isFullScreen)
+                        {
+                            game.scale.stopFullScreen();
+                        }
+                        else
+                        {
+                            game.scale.startFullScreen(false);
+                        }
+
+                    }
+
                     function create() {
+
+                        game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+
+                        game.input.onDown.add(gofull, this);
+
+                        if(!isNaN($("#gameTime").val())){
+                            gameTime = parseInt($("#gameTime").val());
+                        }
 
                         game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -471,7 +524,11 @@ function game(){
 
                         timeText.text = Math.round((timerEvent.delay - timer.ms) / 1000);
 
-                        if (Math.round(timer.ms / 1000) === 10) {
+
+
+
+
+                        if (Math.round(timer.ms / 1000) === gameTime) {
                             gameEnd();
 
                         }
@@ -499,13 +556,15 @@ function game(){
                     }
 
                     function gameEnd() {
+                        game.input.onDown.add(gofull, this);
                         game.destroy();
+                        $("#fullInfo").fadeOut().remove();
 
                         playone.fadeIn();
                         playtwo.fadeIn();
                         $.ajax({
                             type: "POST",
-                            url: "adder.php",
+                            url: "phpserver/adder.php",
                             data: {
                                 "name": player1Name,
                                 "info": score1,
@@ -515,7 +574,7 @@ function game(){
                         if (choice === 2) {
                             $.ajax({
                                 type: "POST",
-                                url: "adder.php",
+                                url: "phpserver/adder.php",
                                 data: {
                                     "name": player2Name,
                                     "info": score2,

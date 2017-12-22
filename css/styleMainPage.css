@@ -15,9 +15,16 @@ h1{
     border-top-right-radius: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
-    font-size: 100px;
+    font-size: 30px;
     text-align: center;
 }
+
+h2 {
+    color: ghostwhite;
+    text-align: center;
+}
+
+
 
 h1 a{
     text-decoration: none;
@@ -44,7 +51,7 @@ nav {
 
 nav li{
     float: left;
-    font-size: 100%;
+    font-size: 15px;
 
 
 }
@@ -334,4 +341,102 @@ nav li #logout-content {
     position: relative;
     top: 2px;
     right: 2px;
+}
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+    .overlay a {font-size: 20px}
+    .overlay .closebtn {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+    }
+}
+
+.naviBar{
+    font-size: 15px;
+}
+
+@media only screen and (min-width: 600px) {
+    .naviBar{
+        font-size: 30px;
+    }
+
+    nav li{
+
+        font-size: 20px;
+
+
+    }
+
+    h1{
+        font-size: 50px;
+    }
+
+    h2{
+        font-size: 30px ;
+    }
+
+}
+
+
+@media only screen and (min-width: 768px) {
+    h1{
+        font-size: 80px;
+    }
+
+    h2{
+        font-size: 40px ;
+    }
+
+    nav li{
+        float: left;
+        font-size: 25px;
+
+
+    }
+
 }

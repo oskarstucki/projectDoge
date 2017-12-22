@@ -14,7 +14,7 @@
 }
 
 
-.list li {
+#list li {
     background: url("https://www.toptal.com/designers/subtlepatterns/patterns/sos.png");
     margin-top: 10px;
     margin-bottom: 10px;
@@ -28,25 +28,17 @@
     border-top-right-radius: 10px;
     text-align: center;
     padding: 10px;
-    font-size: 150%;
+    font-size: 20px;
 }
 
 input{
     margin-top: 10px;
     margin-left: 25%;
+    width: 40%;
+    height: 40px;
 
 }
 
-h2 {
-    vertical-align: middle;
-    color: ghostwhite;
-    margin-left: 40%;
-    margin-right: 35%;
-    width: 50%;
-    font-size: 50px;
-    position: relative;
-    display: inline-block;
-}
 
 .deleteButton{
      margin-top: 5px;
@@ -64,13 +56,44 @@ h2 {
 
 }
 
-.newThings{
-    height: 50px;
-    width: 500px;
-}
 
 #formBut{
-    height: 55px;
-    width: 100px;
+    height: 40px;
+    width: 60px;
 }
 
+
+@media only screen and (min-width: 600px) {
+    #list li {
+
+        font-size: 30px;
+
+    }
+
+    .deleteButton{
+        font-size: 15px;
+    }
+
+    #formBut{
+        height: 40px;
+        width: 10%;
+    }
+
+}
+
+
+@media only screen and (min-width: 768px) {
+    #list li {
+        font-size: 40px;
+
+    }
+
+    .deleteButton{
+        font-size: 20px;
+    }
+
+    #formBut{
+        height: 40px;
+        width: 10%;
+    }
+}

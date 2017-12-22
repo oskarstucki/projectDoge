@@ -6,7 +6,7 @@
  * Time: 1:04 PM
  */
 session_start();
-require_once ("utils.php");
+require_once("utils.php");
 main();
 
 $password = sha1($_POST["Password"] . SALT);
@@ -27,9 +27,8 @@ if(count($rows) === 1){
     $_SESSION["email"] = $rows[0]["email"];
     $_SESSION["logged"]= true;
 
-    //var_dump($rows);
-    //echo $_SESSION["userName"];
+
 }
 
-header("Location: index.php");
+header("Location: ../index.php");
 exit;

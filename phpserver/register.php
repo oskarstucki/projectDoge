@@ -5,7 +5,7 @@
  * Date: 11/12/17
  * Time: 12:19 PM
  */
-require_once ('utils.php');
+require_once('utils.php');
 session_start();
 
 
@@ -56,7 +56,7 @@ if(count($rows) === 1){
                     $stmt->execute(array(":f1" => $_POST["Email"], ":f2" => $_POST["userName"],":f3" => $password,
                         ":f4" => $_POST["firstName"], ":f5" => $_POST["lastName"]));
 
-                    header("Location: index.php");
+                    header("Location: ../index.php");
                     exit;
                 }else {
                     echo "Ei isoja kirjaimia, kirjaimia tai numeroita!";

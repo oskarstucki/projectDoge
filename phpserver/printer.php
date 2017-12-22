@@ -6,7 +6,7 @@
  * Time: 8:12 AM
  */
 
-require_once ("utils.php");
+require_once("utils.php");
 session_start();
 
 $stmt = $db->prepare("SELECT * FROM Information WHERE userId =:userName AND application =:app");
