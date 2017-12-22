@@ -261,6 +261,7 @@ function game(){
 
             playone.on('click', function () {
                 $('.p1').fadeOut().remove();
+                $("#gameTime").fadeOut().remove();
                 inffo.append('<div class="p1"><input value=<?php echo $_SESSION["userName"] ?> id="playerName" title="playerName" type="text" placeholder="Käyttäjänimi"></div>');
                 inffo.append('<input id="gameTime" placeholder="Peliaika">');
                 inffo.append('<div class="p1"><button id="startGame">Pelaa</button></div>');
@@ -272,7 +273,7 @@ function game(){
 
                         playone.fadeOut();
                         playtwo.fadeOut();
-                        $("#gameTime").fadeOut();
+                        $("#gameTime").fadeOut().remove();
                         $('.p1').fadeOut().remove();
                         $('.list').empty();
                         $('#top5').fadeOut().remove();
@@ -285,9 +286,10 @@ function game(){
 
             playtwo.on('click', function () {
                 $('.p1').fadeOut().remove();
+                $("#gameTime").fadeOut().remove();
                 inffo.append('<div class="p1"><input value=<?php echo $_SESSION["userName"] ?> id="playerName" title="playerName" type="text" placeholder="Käyttäjänimi"></div>');
                 inffo.append('<div class="p1"><input placeholder="Käyttäjänimi vierailijalle"id="playerName2" title="playerName" type="text" name="note"></div>');
-
+                inffo.append('<input id="gameTime" placeholder="Peliaika">');
 
                 inffo.append('<div class="p1"><button id="submit">Pelaa</button></div>');
                 $('#submit').on('click', function () {
@@ -296,7 +298,7 @@ function game(){
                         game(2, $('#playerName').val(), $('#playerName2').val() + " guest");
                         playone.fadeOut();
                         playtwo.fadeOut();
-                        $("#gameTime").fadeOut();
+                        $("#gameTime").fadeOut().remove();
                         inffo.append('<div class="p1"><h2>Paina pelistä saadaksesi se koko näytölle</h2></div>');
 
                         $('.p1').fadeOut().remove();
