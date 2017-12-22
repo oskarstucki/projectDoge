@@ -6,7 +6,7 @@
  */
 function printer(){
     let noteList = $("#list");
-    $.getJSON("../phpserver/printer.php", function (data) {
+    $.getJSON("phpserver/printer.php", function (data) {
         noteList.empty();
         data.forEach(function (entry) {
                 noteList.append("<li class='list' id='"+entry.id+"'>"+entry.text+"<button class='deleteButton' value='Poista'>Poista</button></li>")
@@ -193,7 +193,7 @@ $(document).ready(function () {
         $( this).parent("li").fadeOut(function(){ $( this ).parent("li").remove(); });
         $.ajax({
             type: "POST",
-            url: "delete.php",
+            url: "phpserver/delete.php",
             data: {"id": buttonId}
         });
         console.log(buttonId);
@@ -208,7 +208,7 @@ $(document).ready(function () {
         let noteVar = $(".newThings").val();
 
 
-        let url = "adder.php";
+        let url = "phpserver/adder.php";
 
         $.ajax({
             type: "POST",

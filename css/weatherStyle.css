@@ -14,3 +14,33 @@
     padding: 10px;
     //font-size: 150%;
 }
+
+
+.deleteButton{
+    margin-top: 5px;
+    font-size: 10px;
+    float: right;
+    display: inline-block;
+
+
+}
+
+@media only screen and (min-width: 600px) {
+
+
+    .deleteButton{
+        font-size: 15px;
+    }
+
+}
+
+
+@media only screen and (min-width: 768px) {
+
+
+    .deleteButton{
+        font-size: 20px;
+    }
+
+
+}

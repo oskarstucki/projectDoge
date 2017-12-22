@@ -21,7 +21,15 @@ function getWeather($city)
     $mem->addServer("127.0.0.1", 11211) or die("Unable to connect");
     $url = "http://api.openweathermap.org/data/2.5/weather?q=".$city."&APPID=97286caea7eb1b543826d25a2f90a9a0";
 
+    /**
+     * Check if information is in memcached
+     */
     $result = $mem->get($city);
+
+    /**
+     * if not it will be fetched and added to memcached. If the information is fetched extra "a" is send to inform
+     * that the information was fetched and not found from cache.
+     */
 
     if (!$result) {
         $result = file_get_contents($url);
