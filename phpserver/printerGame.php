@@ -4,6 +4,7 @@
  * User: oskar
  * Date: 11/3/17
  * Time: 8:12 AM
+ * Fetches all the scores achieved in the game. That's why it is differed from print.php
  */
 
 require_once("utils.php");

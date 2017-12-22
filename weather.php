@@ -1,4 +1,9 @@
 <?php
+/**
+ * With this you are able to add weather to your site. Uses memcached so server doesn't
+ * have to fetch the information all the time
+ */
+
 require_once("phpserver/utils.php");
 
 

@@ -1,4 +1,7 @@
 <?php
+/**
+ * used for notes functionality
+ */
 
 require_once("phpserver/utils.php");
 

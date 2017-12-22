@@ -4,6 +4,9 @@
  * User: oskar
  * Date: 10/22/17
  * Time: 4:41 AM
+ *
+ * With this you are able to add user specific information to the table
+ * no the matter functionality on the site
  */
 
     require_once("utils.php");

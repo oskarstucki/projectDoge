@@ -4,6 +4,7 @@
  * User: oskar
  * Date: 11/3/17
  * Time: 8:12 AM
+ * Allows you to get user and functionality specific information from the table
  */
 
 require_once("utils.php");

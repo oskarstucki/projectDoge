@@ -4,6 +4,8 @@
  * User: oskar
  * Date: 11/12/17
  * Time: 1:04 PM
+ * php file for login purposes
+ *
  */
 session_start();
 require_once("utils.php");

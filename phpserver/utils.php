@@ -4,8 +4,15 @@
  * User: osaka
  * Date: 22.10.2017
  * Time: 1.54
+ *
+ * File for hmtl parts which are used often. There are functions:
+ * main() , weatherWidget() , navigation(), login(), front (), game ()
  */
 
+/**
+ * Here we have defined some important variables which are used in many files.
+ * Like database information.
+ */
 define("SALT", "slkfjewlköjrökwqrpoqroipjafalkfjölk");
 $host = 'localhost';
 $user = 'www';
@@ -14,7 +21,9 @@ $db = 'www';
 $mysqli = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
 $db = new PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8',$user,$pass);
 
-
+/**
+ * This function is used mainly for loading all scripts and only one header.
+ */
 function main(){
     session_start();
 
@@ -55,6 +64,10 @@ function main(){
     <?php
 }
 
+/**
+ * Possible weatherWidget add-in for the site implemented already. Just could't find the right spot for it.
+ * This widget tracks down the users location and shows the weather there.
+ */
 function weatherWidget(){
     ?>
     <a href="https://www.accuweather.com/en/fi/lappeenranta/133330/weather-forecast/133330" class="aw-widget-legal">
@@ -66,6 +79,11 @@ function weatherWidget(){
     data-useip="true" data-uid="awcc1513877433907"></div><script type="text/javascript" src="https://oap.accuweather.com/launch.js"></script>
     <?php
 }
+
+/**
+ *Function for loading navigation bar html
+ *
+ */
 
 function navigation(){
     ?>
@@ -124,6 +142,10 @@ function navigation(){
     <?php
 }
 
+/**
+ * Differented function for login, register and logout functionality.
+ *
+ */
 function login(){
 
     if(!isset($_SESSION["firstName"])){
@@ -204,6 +226,9 @@ function login(){
     }
 }
 
+/**
+ * Function for frontsides amazing content
+ */
 function front(){
     main();
     navigation();
@@ -217,7 +242,9 @@ function front(){
 
 }
 
-
+/**
+ * function for the game and all its html/javascript content
+ */
 function game(){
     main();
     navigation();
@@ -310,6 +337,11 @@ function game(){
             });
 
 
+
+            /**
+             * function for the game. Choice variable is there to define weather there are
+             * one = 1 or two = 2 players.
+             */
                 function game(choice, player1Name, player2Name) {
                     let gameTime;
                     console.log(player2Name);
@@ -465,6 +497,9 @@ function game(){
                             game.physics.arcade.collide(player2, platforms);
                             game.physics.arcade.overlap(coin, player2, collectCoin, null, this);
                             if (wasd.left.isDown) {
+
+                                // velocity and acceleration calculated for realism
+
                                 if (player2.body.velocity.x > -maxVelocity) {
                                     player2.body.velocity.x -= accelerationSpeed;
                                 }
@@ -535,6 +570,9 @@ function game(){
 
                         }
 
+                        /**
+                         * Function to "kill the coin and generate new one
+                         */
                         function newCoin(coin) {
                             coin.kill();
                             lastCoinSpawn = timer.ms;
@@ -542,6 +580,10 @@ function game(){
                             let x = Math.random() * 900;
                             coin.reset(x, y);
                         }
+
+                        /**
+                         * adds players their score
+                         */
 
                         function collectCoin(coin, player) {
                             newCoin(coin);
@@ -557,6 +599,9 @@ function game(){
 
                     }
 
+                    /**
+                     * game ends and results are saved to the database
+                     */
                     function gameEnd() {
                         game.input.onDown.add(gofull, this);
                         game.destroy();

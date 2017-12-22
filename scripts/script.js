@@ -1,6 +1,9 @@
 "use strict";
 
 
+/**
+ * function used for printing information from the table into a list
+ */
 function printer(){
     let noteList = $("#list");
     $.getJSON("../phpserver/printer.php", function (data) {
@@ -14,6 +17,17 @@ function printer(){
     });
 
 }
+
+/**
+ * function used for printing information from the table into a list but for the game.
+ * Fetches all the game scores and sorts them. Printing only the top 5 and the best score from the
+ * user. Takes in :
+ * @param player1Name = user
+ * @param player2Name = guest
+ * @param player2score = guest score
+ *
+ * adds guests score to be sorted but doesn't necessarily print it if it's not top 5
+ */
 
 function gamePrinter(player1Name, player2Name, player2score) {
 
@@ -75,7 +89,9 @@ function gamePrinter(player1Name, player2Name, player2score) {
 
 $(document).ready(function () {
 
-    /* Facebook-kirjautuminen*/
+    /**
+     * Facebook-login
+    */
 
     $.ajaxSetup({ cache: true });
 
@@ -92,7 +108,7 @@ $(document).ready(function () {
         // Check whether the user already logged in
         FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
-                //display user data
+                //get user data
                 getFbUserData();
             }
         });
@@ -111,7 +127,7 @@ $(document).ready(function () {
     function fbLogin() {
         FB.login(function (response) {
             if (response.authResponse) {
-                // Get and display the user profile data
+                // Get user profile data
                 getFbUserData();
             } else {
                 document.getElementById('status').innerHTML = 'User cancelled login or did not fully authorize.';
@@ -119,7 +135,8 @@ $(document).ready(function () {
         }, {scope: 'email'});
     }
 
-// Fetch the user profile data from facebook
+// Fetch the user profile data from facebook and add it to the table for later use
+
     function getFbUserData(){
         FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'},
             function (response) {
@@ -146,7 +163,7 @@ $(document).ready(function () {
     });
 
 
-    /*Muistilista*/
+    /*Note list scripts */
 
     printer();
 
@@ -168,6 +185,9 @@ $(document).ready(function () {
         $(this).removeClass("inside")
     });
 
+    /**
+     * used to delete notes
+     */
     list.on("click", ".deleteButton", function () {
         let buttonId = $(this).parent("li").attr("id");
         $( this).parent("li").fadeOut(function(){ $( this ).parent("li").remove(); });
@@ -178,6 +198,11 @@ $(document).ready(function () {
         });
         console.log(buttonId);
     });
+
+    /**
+     *adds notes
+     *
+     */
 
     $("#formBut").click(function(e) {
         let noteVar = $(".newThings").val();
@@ -197,9 +222,9 @@ $(document).ready(function () {
     });
 
 
-    /*Login-palkin script */
-
-    /* Paljastuminen*/
+    /**
+     * Login scripts so form "comes down"
+     */
 
     $('#login-trigger').click(function(){
         registerDown($(this));
@@ -246,7 +271,6 @@ $(document).ready(function () {
 
     }
 
-    /*Salasanan tarkistus ja hyväksyminen*/
 
 
 
