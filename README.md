@@ -1,4 +1,4 @@
-# projectDoge
+# Vapaa-ajan sivu
 www-ohjelmoinnin työ
 
 Oskar Stucki
