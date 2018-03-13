@@ -59,7 +59,7 @@ if(count($rows) === 1){
                     header("Location: ../index.php");
                     exit;
                 }else {
-                    echo "Ei isoja kirjaimia, kirjaimia tai numeroita!";
+                    echo "Ei sisällä isoja kirjaimia tai numeroita!";
                 }
             } else{
                 echo "Sisältää muuta kuin kirjaimia ja numeroita";

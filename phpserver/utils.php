@@ -162,9 +162,15 @@ function login(){
                 </fieldset>
                 <fieldset id="actions">
                     <input type="submit" id="submitIn" value="Kirjaudu">
+                    
+                    <!-- 
+                        commented out since doesn't work in cloud9
                     <div class="fb-login-button" data-max-rows="1" data-size="medium"
                          data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false"
                          data-use-continue-as="false"></div>
+                         
+                         --> 
+                         
                 </fieldset>
             </form>
         </div>
@@ -181,22 +187,31 @@ function login(){
                     <input id="usernameReg" type="email" name="Email" placeholder="Sähköposti/Käyttäjätunnus" required>
                     <p>Käyttäjänimi</p>
                     <input id="userName" name="userName" placeholder="Käyttäjänimi"  required>
-                    <p>etunimi</p>
+                    <p>Etunimi</p>
                     <input id="firstName" name="firstName" placeholder="Etunimi"  required>
-                    <p>sukunimi</p>
+                    <p>Sukunimi</p>
                     <input id="lastName" name="lastName" placeholder="Sukunimi" required>
-                    <p>salasana</p>
+                    <p>Salasana</p>
                     <input id="password" type="password" name="password" placeholder="Salasana" required>
                     <input id="password2" type="password" name="password2" placeholder="Salasana uudestaan" required>
-                    <p>Salasana ei saa sisältää erikoismerkkejä ja sen pitää olla yli 8 merkkiä pitkä</p>
-                    <p>sekä sisältää ainakin yksi iso kirjain</p>
+                    <p>Salasana ei saa sisältää erikoismerkkejä</p>
+                    <p>Sen pitää olla yli 8 merkkiä pitkä, sisältää numeroita ja iso kirjain</p>
 
                 </fieldset>
                 <fieldset id="actions">
                     <input type="submit" id="submitReg" value="Rekisteröidy">
-                    <div class="fb-login-button" data-max-rows="1" data-size="medium"
-                         data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false"
-                         data-use-continue-as="false"></div>
+                    
+                    <!--
+                        Commented out since doesn't work on cloud9 
+                      
+                      <div class="fb-login-button" data-max-rows="1" data-size="medium"
+                      data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false"
+                       data-use-continue-as="false"></div>
+                    -->
+                       
+                     
+
+                    
                 </fieldset>
             </form>
         </div>
@@ -403,7 +418,7 @@ function game(){
 
                         ledge = platforms.create(-150, 390, "brick");
                         ledge.body.immovable = true;
-                        ledge = platforms.create(150, 550, "brick");
+                        ledge = platforms.create(170, 550, "brick");
                         ledge.body.immovable = true;
                         ledge = platforms.create(0, 750, "brick");
                         ledge.body.immovable = true;
