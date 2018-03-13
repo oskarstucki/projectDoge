@@ -15,8 +15,8 @@
  */
 define("SALT", "slkfjewlköjrökwqrpoqroipjafalkfjölk");
 $host = 'localhost';
-$user = 'www';
-$pass = 'asd';
+$user = 'opstii';
+$pass = '';
 $db = 'www';
 $mysqli = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
 $db = new PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8',$user,$pass);
@@ -188,6 +188,8 @@ function login(){
                     <p>salasana</p>
                     <input id="password" type="password" name="password" placeholder="Salasana" required>
                     <input id="password2" type="password" name="password2" placeholder="Salasana uudestaan" required>
+                    <p>Salasana ei saa sisältää erikoismerkkejä ja sen pitää olla yli 8 merkkiä pitkä</p>
+                    <p>sekä sisältää ainakin yksi iso kirjain</p>
 
                 </fieldset>
                 <fieldset id="actions">
@@ -234,10 +236,7 @@ function front(){
     navigation();
 
     ?>
-    <div id="gif">
-        <img id="epicWalk" src="http://i.imgur.com/ncXgEgn.gif">
-    </div>
-
+    
     <?php
 
 }
@@ -290,7 +289,6 @@ function game(){
                 $('.p1').fadeOut().remove();
                 $("#gameTime").fadeOut().remove();
                 inffo.append('<div class="p1"><input value=<?php echo $_SESSION["userName"] ?> id="playerName" title="playerName" type="text" placeholder="Käyttäjänimi"></div>');
-                inffo.append('<input id="gameTime" placeholder="Peliaika">');
                 inffo.append('<div class="p1"><button id="startGame">Pelaa</button></div>');
                 $('#startGame').on('click', function () {
 
@@ -300,7 +298,6 @@ function game(){
 
                         playone.fadeOut();
                         playtwo.fadeOut();
-                        $("#gameTime").fadeOut().remove();
                         $('.p1').fadeOut().remove();
                         $('.list').empty();
                         $('#top5').fadeOut().remove();
@@ -316,7 +313,6 @@ function game(){
                 $("#gameTime").fadeOut().remove();
                 inffo.append('<div class="p1"><input value=<?php echo $_SESSION["userName"] ?> id="playerName" title="playerName" type="text" placeholder="Käyttäjänimi"></div>');
                 inffo.append('<div class="p1"><input placeholder="Käyttäjänimi vierailijalle"id="playerName2" title="playerName" type="text" name="note"></div>');
-                inffo.append('<input id="gameTime" placeholder="Peliaika">');
 
                 inffo.append('<div class="p1"><button id="submit">Pelaa</button></div>');
                 $('#submit').on('click', function () {
@@ -325,7 +321,6 @@ function game(){
                         game(2, $('#playerName').val(), $('#playerName2').val() + " guest");
                         playone.fadeOut();
                         playtwo.fadeOut();
-                        $("#gameTime").fadeOut().remove();
                         inffo.append('<div class="p1"><h2>Paina pelistä saadaksesi se koko näytölle</h2></div>');
 
                         $('.p1').fadeOut().remove();
@@ -343,7 +338,7 @@ function game(){
              * one = 1 or two = 2 players.
              */
                 function game(choice, player1Name, player2Name) {
-                    let gameTime;
+                    let gameTime = 60;
                     console.log(player2Name);
                     player2Name = player2Name || 0;
                     let game = new Phaser.Game(1000, 900, Phaser.AUTO, "phaser-game", {
@@ -388,10 +383,7 @@ function game(){
                         game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
                         game.input.onDown.add(gofull, this);
-
-                        if(!isNaN($("#gameTime").val())){
-                            gameTime = parseInt($("#gameTime").val());
-                        }
+                        
 
                         game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -561,9 +553,7 @@ function game(){
 
                         timeText.text = Math.round((timerEvent.delay - timer.ms) / 1000);
 
-
-
-
+                        
 
                         if (Math.round(timer.ms / 1000) === gameTime) {
                             gameEnd();
