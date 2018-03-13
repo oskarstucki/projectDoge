@@ -418,20 +418,20 @@ function game(){
 
                         ledge = platforms.create(-150, 390, "brick");
                         ledge.body.immovable = true;
-                        ledge = platforms.create(170, 550, "brick");
+                        ledge = platforms.create(150, 550, "brick");
                         ledge.body.immovable = true;
-                        ledge = platforms.create(0, 750, "brick");
+                        ledge = platforms.create(0, 700, "brick");
                         ledge.body.immovable = true;
                         ledge = platforms.create(600, 700, "brick");
                         ledge.body.immovable = true;
-                        ledge = platforms.create(800, 500, "brick");
+                        ledge = platforms.create(750, 500, "brick");
                         ledge.body.immovable = true;
 
 
                         player = game.add.sprite(0, 780, 'player1');
 
-                        player.animations.add('kek');
-                        player.animations.play('kek', 10, true);
+                        player.animations.add('breathing');
+                        player.animations.play('breathing', 10, true);
                         player.scale.set(0.2);
                         game.physics.arcade.enable(player);
                         player.body.collideWorldBounds = true;
@@ -441,8 +441,8 @@ function game(){
 
                         if (choice === 2) {
                             player2 = game.add.sprite(100, 300, 'player2');
-                            player2.animations.add('kok');
-                            player2.animations.play('kok', 10, true);
+                            player2.animations.add('idle');
+                            player2.animations.play('idle', 10, true);
                             player2.scale.set(0.2);
                             game.physics.arcade.enable(player2);
                             player2.body.collideWorldBounds = true;
