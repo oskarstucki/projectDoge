@@ -6,7 +6,8 @@ Oskar Stucki
 This project is for a multifunctional website where a user can 
 play games, add notes or take a look at the weather. The content is personalized
 for the user as information is stored to the database. Sites header changes to reassemble users 
-name. The site can be used with smaller devices as it scales.
+name. The site can be used with smaller devices ames it scales.
+For memcached to start in cloud9 run bash command: "sudo service memcached restart"
 
 The project has multiple files that are stored in folders:
 assets, css, oldFiles, phpserver, scripts and the main folder.
