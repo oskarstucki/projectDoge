@@ -1,7 +1,4 @@
-# Vapaa-ajan sivu
-www-ohjelmoinnin työ
-
-Oskar Stucki
+# Free time web-portal
 
 This project is for a multifunctional website where a user can 
 play games, add notes or take a look at the weather. The content is personalized
